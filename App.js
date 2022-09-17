@@ -1,21 +1,17 @@
+import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import {SafeAreaView, View, Text} from 'react-native';
+import { SafeAreaView, Text, View } from 'react-native';
 import {useTailwind} from 'tailwind-rn';
 
-const Hello = () => {
-	const tailwind = useTailwind();
-
-	return (
-		<SafeAreaView style={tailwind('h-full')}>
-			<View style={tailwind('pt-12 items-center')}>
-				<View style={tailwind('bg-blue-200 px-3 py-1 rounded-full')}>
-					<Text style={tailwind('text-blue-800 font-semibold')}>
-						Hello Tailwind
-					</Text>
-				</View>
-			</View>
-		</SafeAreaView>
-	);
-};
-
-export default Hello;
+export default function App() {
+	const tw = useTailwind();
+  return (
+	<SafeAreaView className="h-full">
+		<View className="pt-12 items-center">
+			<Text className="text-blue-800 font-semibold">
+				Hello tailwind
+			</Text>
+		</View>
+	</SafeAreaView>
+  );
+}
