@@ -10,9 +10,8 @@ const config = {
     permissions: ["public_profile", "email", "gender", "location"]
 }
 
-
-var c = true;
-var d = 0.2;
+var a = 10;
+var b = "Test";
 
 export const AuthProvider  = ({ children }) => {
 
