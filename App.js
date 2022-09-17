@@ -1,17 +1,17 @@
-import { StatusBar } from 'expo-status-bar';
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
-import { SafeAreaView, Text, View } from 'react-native';
-import {useTailwind} from 'tailwind-rn';
+import { AuthProvider } from './hooks/useAuth';
+import StackNavigator from './StackNavigator';
 
 export default function App() {
-	const tw = useTailwind();
+	
   return (
-	<SafeAreaView className="h-full">
-		<View className="pt-12 items-center">
-			<Text className="text-blue-800 font-semibold">
-				Hello tailwind
-			</Text>
-		</View>
-	</SafeAreaView>
+	<NavigationContainer>
+		{/* HOC - High Order Component */}
+		<AuthProvider>
+			{/* Passes down the cool auth stuff to children */}
+			<StackNavigator />
+		</AuthProvider>
+	</NavigationContainer>
   );
 }
