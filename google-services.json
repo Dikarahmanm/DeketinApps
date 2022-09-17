@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "398467169577-5oho7hld1jlfotadia86nj4jvmv9vu0j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.palo.deketin",
+            "certificate_hash": "262efd6347bf27d66dd5f5c8fe48a1edaebc6e96"
+          }
+        },
+        {
           "client_id": "398467169577-eg9c6m7bdhsgueo8b7lu9reh2d50ftdb.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -27,7 +35,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "398467169577-eg9c6m7bdhsgueo8b7lu9reh2d50ftdb.apps.googleusercontent.com",
+              "client_id": "398467169577-bqpj1p5rc7ktdfbeo3vda9fr6opnu0ak.apps.googleusercontent.com",
               "client_type": 3
             },
             {
