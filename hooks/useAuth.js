@@ -9,6 +9,11 @@ const config = {
     scopes: ["prifile", "email"],
     permissions: ["public_profile", "email", "gender", "location"]
 }
+
+
+var c = true;
+var d = 0.2;
+
 export const AuthProvider  = ({ children }) => {
 
     const signInWithGoogle = async()=>{
