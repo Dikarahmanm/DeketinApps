@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/core";
 import { styled, StyledComponent } from "nativewind";
 
 const LoginScreen = () => {
-  // const{propmtAsync, loading }=useAuth();
+  const{promptAsync, setLoading }=useAuth();
   const navigation = useNavigation();
 
   useLayoutEffect(() => {
@@ -17,8 +17,15 @@ const LoginScreen = () => {
   return (
     <View className="flex-1">
       {/* <Text>{loading ? : "loading...." : "Login to the app"}</Text> */}
-      {/* <Button title='login' onPress={propmtAsync()}/> */}
-      <ImageBackground
+      <Text>AAAA</Text>
+      <Text>AAAA</Text>
+      <Text>AAAA</Text>
+      <Text>AAAA</Text>
+      <Button title='login' onPress={()=>{
+        promptAsync()
+        setLoading(true)
+        }}/>
+      {/* <ImageBackground
         resizeMode="cover"
         className="flex-1"
         source={{
@@ -27,7 +34,7 @@ const LoginScreen = () => {
         <Text className="flex-1 items-center justify-center">
           Sign in & get ASSSu
         </Text>
-      </ImageBackground>
+      </ImageBackground> */}
     </View>
   );
 };

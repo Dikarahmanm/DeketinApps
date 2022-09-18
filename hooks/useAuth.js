@@ -1,25 +1,50 @@
 import { View, Text } from 'react-native'
-import React, { createContext, useContext } from 'react'
+import React, { createContext, useContext, useEffect } from 'react'
 import * as Google from "expo-auth-session/providers/google";
 import * as WebBrowser from "expo-web-browser";
-
+import {GoogleAuthProvider, onAuthStateChanged, signInWithCredential, signOut,} from '@firebase/auth';
+import {auth} from "../firebase"
 WebBrowser.maybeCompleteAuthSession();
 
 const AuthContext = createContext({})
 
 export const AuthProvider  = ({ children }) => {
 
-    const [accesToken, setAccesToken] = React.useState();
-    const [userInfo, setUserInfo] = React.useState();
-    const [request, response, propmtAsync] = Google.useAuthRequest({
+    const [user, setUser] = React.useState(null)
+    const [loadingInitial, setLoadingInitial] = React.useState(true);
+    const [loading, setLoading] = React.useState(false);
+
+    const [request, response, promptAsync] = Google.useAuthRequest({
         iosClientId: '398467169577-l2kmjsts9luf34j9jcdqvo57khatdap6.apps.googleusercontent.com',
         androidClientId: '398467169577-eg9c6m7bdhsgueo8b7lu9reh2d50ftdb.apps.googleusercontent.com',
         expoClientId:'398467169577-bqpj1p5rc7ktdfbeo3vda9fr6opnu0ak.apps.googleusercontent.com'
     });
+
+
+    React.useEffect(
+        ()=>
+        onAuthStateChanged(auth, (user)=>{
+            if(user){
+                setUser(user)
+                //Logged in
+            }else{
+                setUser(null)
+            }
+            setLoadingInitial(false)
+        }),
+    []);
+
     React.useEffect(()=>{
+
         if(response?.type==="success"){
-            setAccesToken(response.authentication.accessToken);
+            console.log(response.authentication.idToken);
+            console.log(response.authentication.accessToken);
+            const credential = GoogleAuthProvider.credential(response.authentication.idToken, response.authentication.accessToken);
+            signInWithCredential(auth, credential);
         }
+
+        setLoading(false);
+         
     }, [response]);
 
     async function getUserData(){
@@ -32,11 +57,13 @@ export const AuthProvider  = ({ children }) => {
     return (
     <AuthContext.Provider
         value={{
-            user: false,
-            //propmtAsync,
+            user: user,
+            promptAsync,
+            setLoading,
+            loading:loading
     } 
     }>
-        {children}
+        {!loadingInitial && children}
     </AuthContext.Provider>
     );
 };
