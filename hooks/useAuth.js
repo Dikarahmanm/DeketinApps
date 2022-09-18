@@ -32,8 +32,8 @@ export const AuthProvider  = ({ children }) => {
     return (
     <AuthContext.Provider
         value={{
-            //user: false,
-            propmtAsync,
+            user: false,
+            //propmtAsync,
     } 
     }>
         {children}
