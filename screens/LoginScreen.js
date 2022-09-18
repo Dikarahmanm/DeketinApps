@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/core";
 import { styled, StyledComponent } from "nativewind";
 
 const LoginScreen = () => {
-  const{promptAsync, setLoading }=useAuth();
+  const{promptAsync, setLoading, loading }=useAuth();
   const navigation = useNavigation();
 
   useLayoutEffect(() => {
@@ -21,6 +21,7 @@ const LoginScreen = () => {
       <Text>AAAA</Text>
       <Text>AAAA</Text>
       <Text>AAAA</Text>
+      <Text>{loading? "Loading . . ." : "Login To The App"}</Text>
       <Button title='login' onPress={()=>{
         promptAsync()
         setLoading(true)

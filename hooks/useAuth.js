@@ -1,5 +1,5 @@
 import { View, Text } from 'react-native'
-import React, { createContext, useContext, useEffect } from 'react'
+import React, { createContext, useContext, useEffect, useMemo } from 'react'
 import * as Google from "expo-auth-session/providers/google";
 import * as WebBrowser from "expo-web-browser";
 import {GoogleAuthProvider, onAuthStateChanged, signInWithCredential, signOut,} from '@firebase/auth';
@@ -11,6 +11,7 @@ const AuthContext = createContext({})
 export const AuthProvider  = ({ children }) => {
 
     const [user, setUser] = React.useState(null)
+    const [error, setError] = React.useState(null)
     const [loadingInitial, setLoadingInitial] = React.useState(true);
     const [loading, setLoading] = React.useState(false);
 
@@ -20,6 +21,10 @@ export const AuthProvider  = ({ children }) => {
         expoClientId:'398467169577-bqpj1p5rc7ktdfbeo3vda9fr6opnu0ak.apps.googleusercontent.com'
     });
 
+    const logout = () => {
+        setLoading(true);
+        signOut(auth).catch((error)=>setError(error)).finally(()=>setLoading(false));
+    }
 
     React.useEffect(
         ()=>
@@ -30,7 +35,8 @@ export const AuthProvider  = ({ children }) => {
             }else{
                 setUser(null)
             }
-            setLoadingInitial(false)
+            setLoadingInitial(false);
+            setLoading(false);
         }),
     []);
 
@@ -43,7 +49,6 @@ export const AuthProvider  = ({ children }) => {
             signInWithCredential(auth, credential);
         }
 
-        setLoading(false);
          
     }, [response]);
 
@@ -53,16 +58,16 @@ export const AuthProvider  = ({ children }) => {
         })
     }
 
-
+    const memoedValue = useMemo(()=>({
+        user: user,
+        promptAsync,
+        setLoading,
+        loading:loading,
+        logout,
+        error:error,
+    }),[user, loading, error])
     return (
-    <AuthContext.Provider
-        value={{
-            user: user,
-            promptAsync,
-            setLoading,
-            loading:loading
-    } 
-    }>
+    <AuthContext.Provider value={memoedValue}>
         {!loadingInitial && children}
     </AuthContext.Provider>
     );
