@@ -65,6 +65,8 @@ const LoginScreen = () => {
               size={24}
               color="black"
               style={styles.googleIcon}>
+                
+              {" "}
               <Text style={styles.Text} className="justify-center items-center">
                 Login With Phone Number
               </Text>
@@ -81,34 +83,36 @@ export default LoginScreen;
 const styles = StyleSheet.create({
   box: {
     position: "absolute",
-    width: 300,
-    height: 34,
-    left: 3,
-    top: 322,
+    width: '70%',
+    marginLeft:'15%',
+    marginRight:'15%',
+    height: 45,
+    top: '53%',
+    alignItems: 'center',
     backgroundColor: "white",
     borderRadius: 25,
     textAlign: "center",
     textAlignVertical: "center",
   },
   googleIcon: {
-    marginLeft: 10,
-    marginTop: 4,
     position: "absolute",
+    top:'10%',
   },
   Text: {
     fontSize: 16,
     textAlignVertical: "center",
-    position: "absolute",
-    alignItems: "center",
-    marginLeft: 10,
+    position: "relative",
+    top:'15%',
     color: "#2BBDAF",
   },
   box2: {
     position: "absolute",
-    width: 300,
-    height: 34,
-    left: 3,
-    top: 370,
+    width: '70%',
+    marginLeft:'15%',
+    marginRight:'15%',
+    height: 45,
+    alignItems: 'center',
+    top: '60%',
     backgroundColor: "white",
     borderRadius: 25,
     textAlign: "center",
