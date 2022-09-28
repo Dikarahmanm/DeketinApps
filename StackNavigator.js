@@ -12,7 +12,10 @@ const Stack = createNativeStackNavigator();
 const StackNavigator = () => {
   const { user } = useAuth();
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      defaultScreenOptions={{
+        header: null,
+      }}>
       {user ? (
         <>
           <Stack.Screen name="Home" component={HomeScreen} />

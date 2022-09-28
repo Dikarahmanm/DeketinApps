@@ -1,11 +1,17 @@
 import { View, Text, Button } from "react-native";
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import useAuth from "../hooks/useAuth";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
-  const {logout} = useAuth();
+  const { logout } = useAuth();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, []);
   return (
     <View>
       <Text>HomeScreen</Text>
@@ -13,10 +19,7 @@ const HomeScreen = () => {
         title="Go to Chat Screen"
         onPress={() => navigation.navigate("Chat")}
       />
-      <Button
-        title="Logout"
-        onPress={() => logout()}
-      />
+      <Button title="Logout" onPress={() => logout()} />
     </View>
   );
 };
