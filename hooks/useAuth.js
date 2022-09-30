@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }) => {
 
   const memoedValue = useMemo(
     () => ({
-      user: true,
+      user: user,
       promptAsync,
       setLoading,
       loading: loading,

@@ -6,15 +6,32 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import useAuth from "../hooks/useAuth";
 import { AntDesign, Entypo } from "@expo/vector-icons";
 import Swiper from "react-native-deck-swiper";
+import { async } from "@firebase/util";
+import { doc, onSnapshot, setDoc } from "firebase/firestore";
+import { useRef } from "react";
+import { db } from "../firebase";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
   const { user, logout } = useAuth();
+  const swipeRef = useRef(null);
+  const [profiles, SetProfiles] = useState([]);
+
+  useLayoutEffect(
+    ()=>{
+    const unsub = onSnapshot(doc(db, 'users', user.uid), snapshot=>{
+     if (!snapshot.exists){
+      navigation.navigate("Modal");
+     }
+    });
+    return unsub();
+  },[]);
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
@@ -46,13 +63,23 @@ const HomeScreen = () => {
     },
   ];
 
+  const SwipeLeft = async(cardIndex)=>{
+    if(!DUMMY_DATA[cardIndex])return;
+    const userSwiped = DUMMY_DATA[cardIndex];
+    console.log(`You Swiped Pass on ${userSwiped.displayName}`)
+    setDoc(doc(db, 'users', user.uid, 'passes', userSwiped.id), userSwiped)
+  };
+  const SwipeRight = async(cardIndex)=>{
+
+  };
+
   return (
     <SafeAreaView className="flex-1">
       {/*Header */}
       <View>
         <TouchableOpacity>
           <Image
-            source={require("D:/Project Mobile Apps/DeketinApps/assets/Group9.png")}
+            source={require("D:/GameProjects/DeketinAppsProj/assets/Group9.png")}
             style={{
               top: "80%",
               justifyContent: "center",
@@ -79,13 +106,16 @@ const HomeScreen = () => {
       {/*CARDS */}
       <View className="flex-1 -mt-6">
         <Swiper
+        ref={swipeRef}
           containerStyle={{ backgroundColor: "transparent" }}
           cards={DUMMY_DATA}
           stackSize={5}
           cardIndex={0}
           animateCardOpacity
           verticalSwipe={false}
-          renderCard={(card) => (
+          onSwipedLeft={(cardIndex)=>{SwipeLeft(cardIndex);}}
+          onSwipedRight={(cardIndex)=>{SwipeRight(cardIndex);}}
+          renderCard={(card) => card ? (
             <View key={card.id} className="bg-white h-3/4 rounded-xl relative">
               <Image
                 className="absolute top-0 h-full w-full rounded-xl"
@@ -114,10 +144,16 @@ const HomeScreen = () => {
                 {card.distance}{" "}
               </Text>
             </View>
-          )}
+          ) : (<View className="relative bg-white h-3/4 rounded-xl justify-center items-center">
+            <Text className="font-bold pb-5">No more profiles</Text>
+            <Image className="h-20 w-20"
+            height={50}
+            width={50}
+            source={{uri:"https://links.papareact.com/6gb"}}/>
+          </View>)}
         />
       </View>
-      <View className="flex flex-row justify-evenly" style={{ bottom: "30%" }}>
+      <View className="flex flex-row justify-evenly" style={{ bottom: "5%" }}>
         <TouchableOpacity onPress={() => swipeRef.current.swipeLeft()}>
           <Entypo
             name="cross"
@@ -136,7 +172,7 @@ const HomeScreen = () => {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => swipeRef.current.this.swipeRight()}>
+        <TouchableOpacity onPress={() => {swipeRef.current.swipeRight()}}>
           <Entypo
             name="heart"
             size={36}
@@ -154,6 +190,11 @@ const HomeScreen = () => {
           />
         </TouchableOpacity>
       </View>
+      
+      <Button
+        title="Logout"
+        onPress={() => logout()}
+      />
     </SafeAreaView>
   );
 };
