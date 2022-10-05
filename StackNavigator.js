@@ -23,7 +23,7 @@ const StackNavigator = () => {
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Chat" component={ChatScreen} />
           </Stack.Group>
-          <Stack.Group screenOptions={{ presentation: "Modal" }}>
+          <Stack.Group screenOptions={{ presentation: "modal" }}>
             <Stack.Screen name="Modal" component={ModalScreen} />
           </Stack.Group>
         </>

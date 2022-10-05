@@ -74,7 +74,7 @@ const HomeScreen = () => {
     <SafeAreaView className="flex-1">
       {/*Header */}
       <View>
-        <TouchableOpacity onPress={() => navigation.navigate("Modal")}>
+        <TouchableOpacity className="bg-black">
           <Image
             source={require("../assets/Group9.png")}
             style={{
@@ -86,7 +86,7 @@ const HomeScreen = () => {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
+        <TouchableOpacity>
           <AntDesign
             name="filter"
             size={24}
@@ -184,10 +184,7 @@ const HomeScreen = () => {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => {
-            swipeRef.current.swipeRight();
-          }}>
+        <TouchableOpacity onPress={() => navigation.navigate("Modal")}>
           <Entypo
             name="heart"
             size={36}
