@@ -73,9 +73,6 @@ const HomeScreen = () => {
 
     const userSwiped = profiles[cardIndex];
     console.log(`You Swiped Right on ${userSwiped.displayName}`);
-    const loggedInProfile = await (
-      await getDoc(db, "users", user.uid))
-      .data();
     
     getDoc(doc(db, "users", userSwiped.id, "swipes", user.uid)).then(
       (documentSnapshot) => {
