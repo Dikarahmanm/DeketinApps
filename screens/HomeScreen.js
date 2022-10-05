@@ -12,7 +12,7 @@ import useAuth from "../hooks/useAuth";
 import { AntDesign, Entypo } from "@expo/vector-icons";
 import Swiper from "react-native-deck-swiper";
 import { async } from "@firebase/util";
-import { doc, onSnapshot, setDoc } from "firebase/firestore";
+import { collection, doc, onSnapshot, setDoc } from "firebase/firestore";
 import { useRef } from "react";
 import { db } from "../firebase";
 
@@ -22,15 +22,34 @@ const HomeScreen = () => {
   const swipeRef = useRef(null);
   const [profiles, SetProfiles] = useState([]);
 
-  useLayoutEffect(() => {
-    const unsub = onSnapshot(doc(db, "users", user.uid), (snapshot) => {
-      if (!snapshot.exists) {
+  useLayoutEffect(
+    () => 
+    onSnapshot(doc(db, "users", user.uid), (snapshot) => {
+      console.log(snapshot);
+      if (!snapshot.exists()) {
         navigation.navigate("Modal");
       }
-    });
-    return unsub();
-  }, []);
+    }),
+    []
+  );
 
+  useEffect(()=>{
+    let unsub;
+    const fetchCards = async () => {
+      unsub = onSnapshot(collection(db, 'users'), snapshot =>{
+        SetProfiles(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }))
+        );
+    });
+    };
+    fetchCards();
+    return unsub;
+  }, []);
+  
+  console.log(profiles);
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
@@ -63,9 +82,9 @@ const HomeScreen = () => {
   ];
 
   const SwipeLeft = async (cardIndex) => {
-    if (!DUMMY_DATA[cardIndex]) return;
-    const userSwiped = DUMMY_DATA[cardIndex];
-    console.log(`You Swiped Pass on ${userSwiped.displayName}`);
+    if (!profiles[cardIndex]) return;
+    const userSwiped = profiles[cardIndex];
+    console.log(`You Swiped Pass on ${profiles.displayName}`);
     setDoc(doc(db, "users", user.uid, "passes", userSwiped.id), userSwiped);
   };
   const SwipeRight = async (cardIndex) => {};
@@ -108,7 +127,7 @@ const HomeScreen = () => {
         <Swiper
           ref={swipeRef}
           containerStyle={{ backgroundColor: "transparent" }}
-          cards={DUMMY_DATA}
+          cards={profiles}
           stackSize={5}
           cardIndex={0}
           animateCardOpacity

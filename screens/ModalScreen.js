@@ -5,6 +5,7 @@ import { TextInput } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
 const ChatScreen = () => {
   const navigation = useNavigation();
