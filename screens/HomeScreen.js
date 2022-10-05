@@ -22,15 +22,14 @@ const HomeScreen = () => {
   const swipeRef = useRef(null);
   const [profiles, SetProfiles] = useState([]);
 
-  useLayoutEffect(
-    ()=>{
-    const unsub = onSnapshot(doc(db, 'users', user.uid), snapshot=>{
-     if (!snapshot.exists){
-      navigation.navigate("Modal");
-     }
+  useLayoutEffect(() => {
+    const unsub = onSnapshot(doc(db, "users", user.uid), (snapshot) => {
+      if (!snapshot.exists) {
+        navigation.navigate("Modal");
+      }
     });
     return unsub();
-  },[]);
+  }, []);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -63,23 +62,21 @@ const HomeScreen = () => {
     },
   ];
 
-  const SwipeLeft = async(cardIndex)=>{
-    if(!DUMMY_DATA[cardIndex])return;
+  const SwipeLeft = async (cardIndex) => {
+    if (!DUMMY_DATA[cardIndex]) return;
     const userSwiped = DUMMY_DATA[cardIndex];
-    console.log(`You Swiped Pass on ${userSwiped.displayName}`)
-    setDoc(doc(db, 'users', user.uid, 'passes', userSwiped.id), userSwiped)
+    console.log(`You Swiped Pass on ${userSwiped.displayName}`);
+    setDoc(doc(db, "users", user.uid, "passes", userSwiped.id), userSwiped);
   };
-  const SwipeRight = async(cardIndex)=>{
-
-  };
+  const SwipeRight = async (cardIndex) => {};
 
   return (
     <SafeAreaView className="flex-1">
       {/*Header */}
       <View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Modal")}>
           <Image
-            source={require("D:/GameProjects/DeketinAppsProj/assets/Group9.png")}
+            source={require("../assets/Group9.png")}
             style={{
               top: "80%",
               justifyContent: "center",
@@ -87,6 +84,9 @@ const HomeScreen = () => {
               marginLeft: "30%",
             }}
           />
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
           <AntDesign
             name="filter"
             size={24}
@@ -106,51 +106,63 @@ const HomeScreen = () => {
       {/*CARDS */}
       <View className="flex-1 -mt-6">
         <Swiper
-        ref={swipeRef}
+          ref={swipeRef}
           containerStyle={{ backgroundColor: "transparent" }}
           cards={DUMMY_DATA}
           stackSize={5}
           cardIndex={0}
           animateCardOpacity
           verticalSwipe={false}
-          onSwipedLeft={(cardIndex)=>{SwipeLeft(cardIndex);}}
-          onSwipedRight={(cardIndex)=>{SwipeRight(cardIndex);}}
-          renderCard={(card) => card ? (
-            <View key={card.id} className="bg-white h-3/4 rounded-xl relative">
-              <Image
-                className="absolute top-0 h-full w-full rounded-xl"
-                source={{ uri: card.photoURL }}
-              />
-              <Text
-                style={{
-                  top: "85%",
-                  fontSize: 24,
-                  left: "5%",
-                  fontWeight: "bold",
-                  color: "white",
-                }}>
-                {" "}
-                {card.firstName}, {card.age}{" "}
-              </Text>
-              <Text
-                style={{
-                  top: "85.1%",
-                  fontSize: 18,
-                  left: "5%",
-                  fontStyle: "normal",
-                  color: "white",
-                }}>
-                {" "}
-                {card.distance}{" "}
-              </Text>
-            </View>
-          ) : (<View className="relative bg-white h-3/4 rounded-xl justify-center items-center">
-            <Text className="font-bold pb-5">No more profiles</Text>
-            <Image className="h-20 w-20"
-            height={50}
-            width={50}
-            source={{uri:"https://links.papareact.com/6gb"}}/>
-          </View>)}
+          onSwipedLeft={(cardIndex) => {
+            SwipeLeft(cardIndex);
+          }}
+          onSwipedRight={(cardIndex) => {
+            SwipeRight(cardIndex);
+          }}
+          renderCard={(card) =>
+            card ? (
+              <View
+                key={card.id}
+                className="bg-white h-3/4 rounded-xl relative">
+                <Image
+                  className="absolute top-0 h-full w-full rounded-xl"
+                  source={{ uri: card.photoURL }}
+                />
+                <Text
+                  style={{
+                    top: "85%",
+                    fontSize: 24,
+                    left: "5%",
+                    fontWeight: "bold",
+                    color: "white",
+                  }}>
+                  {" "}
+                  {card.firstName}, {card.age}{" "}
+                </Text>
+                <Text
+                  style={{
+                    top: "85.1%",
+                    fontSize: 18,
+                    left: "5%",
+                    fontStyle: "normal",
+                    color: "white",
+                  }}>
+                  {" "}
+                  {card.distance}{" "}
+                </Text>
+              </View>
+            ) : (
+              <View className="relative bg-white h-3/4 rounded-xl justify-center items-center">
+                <Text className="font-bold pb-5">No more profiles</Text>
+                <Image
+                  className="h-20 w-20"
+                  height={50}
+                  width={50}
+                  source={{ uri: "https://links.papareact.com/6gb" }}
+                />
+              </View>
+            )
+          }
         />
       </View>
       <View className="flex flex-row justify-evenly" style={{ bottom: "5%" }}>
@@ -172,7 +184,10 @@ const HomeScreen = () => {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => {swipeRef.current.swipeRight()}}>
+        <TouchableOpacity
+          onPress={() => {
+            swipeRef.current.swipeRight();
+          }}>
           <Entypo
             name="heart"
             size={36}
@@ -190,11 +205,8 @@ const HomeScreen = () => {
           />
         </TouchableOpacity>
       </View>
-      
-      <Button
-        title="Logout"
-        onPress={() => logout()}
-      />
+
+      <Button title="Logout" onPress={() => logout()} />
     </SafeAreaView>
   );
 };
