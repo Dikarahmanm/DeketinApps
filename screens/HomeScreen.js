@@ -42,7 +42,7 @@ const HomeScreen = () => {
       (snapshot => snapshot.docs.map(doc => doc.id));
       const passedUserIds = passes.length > 0 ? passes : ['test'];
       const swipesUserIds = swipes.length > 0 ? swipes : ['test'];
-      console.log([...passedUserIds, ...swipesUserIds]);
+      console.log([...swipesUserIds]);
       unsub = onSnapshot(query(collection(db, 'users'), where('id', 'not-in', [...passedUserIds, ...swipesUserIds])), snapshot =>{
         SetProfiles(
           snapshot.docs.filter(doc => doc.id !== user.uid ).map((doc) => ({
@@ -77,9 +77,10 @@ const HomeScreen = () => {
       await getDoc(db, "users", user.uid))
       .data();
     
-    getDoc(doc(db, "users", userSwiped.id, 'swipes', user.uid)).then(
+    getDoc(doc(db, "users", userSwiped.id, "swipes", user.uid)).then(
       (documentSnapshot) => {
         if(documentSnapshot.exists()){
+          console.log("A MAtch");
           //user match with you before you matched with them
           //Create a MATCH!!
           console.log(`Hooray, you MATCHED with ${userSwiped.displayName}`);
@@ -102,7 +103,7 @@ const HomeScreen = () => {
               userSwiped,
             });
         } else{
-
+          console.log("Not A MAtch");
           setDoc(
             doc(db, "users", user.uid, "swipes", userSwiped.id), 
             userSwiped
