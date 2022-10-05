@@ -12,9 +12,10 @@ import useAuth from "../hooks/useAuth";
 import { AntDesign, Entypo } from "@expo/vector-icons";
 import Swiper from "react-native-deck-swiper";
 import { async } from "@firebase/util";
-import { collection, doc, onSnapshot, setDoc } from "firebase/firestore";
+import { query, collection, doc,getDoc, getDocs, onSnapshot, setDoc, where, DocumentSnapshot, Timestamp, serverTimestamp } from "firebase/firestore";
 import { useRef } from "react";
 import { db } from "../firebase";
+import generateId from "../lib/generateId";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -25,7 +26,6 @@ const HomeScreen = () => {
   useLayoutEffect(
     () => 
     onSnapshot(doc(db, "users", user.uid), (snapshot) => {
-      console.log(snapshot);
       if (!snapshot.exists()) {
         navigation.navigate("Modal");
       }
@@ -36,9 +36,16 @@ const HomeScreen = () => {
   useEffect(()=>{
     let unsub;
     const fetchCards = async () => {
-      unsub = onSnapshot(collection(db, 'users'), snapshot =>{
+      const passes = await getDocs(collection(db, 'users', user.uid, 'passes')).then
+      (snapshot => snapshot.docs.map(doc => doc.id));
+      const swipes = await getDocs(collection(db, 'users', user.uid, 'swipes')).then
+      (snapshot => snapshot.docs.map(doc => doc.id));
+      const passedUserIds = passes.length > 0 ? passes : ['test'];
+      const swipesUserIds = swipes.length > 0 ? swipes : ['test'];
+      console.log([...passedUserIds, ...swipesUserIds]);
+      unsub = onSnapshot(query(collection(db, 'users'), where('id', 'not-in', [...passedUserIds, ...swipesUserIds])), snapshot =>{
         SetProfiles(
-          snapshot.docs.map((doc) => ({
+          snapshot.docs.filter(doc => doc.id !== user.uid ).map((doc) => ({
             id: doc.id,
             ...doc.data(),
           }))
@@ -47,47 +54,65 @@ const HomeScreen = () => {
     };
     fetchCards();
     return unsub;
-  }, []);
-  
-  console.log(profiles);
+  }, [db]);
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });
   }, []);
 
-  const DUMMY_DATA = [
-    {
-      firstName: "Rex",
-      distance: "5 miles",
-      age: "27",
-      photoURL:
-        "https://i.ibb.co/hKqkwXr/charlie-green-3-Jmf-ENc-L24-M-unsplash.jpg",
-      id: 123,
-    },
-    {
-      firstName: "Agung",
-      distance: "7 miles",
-      age: "21",
-      photoURL: "https://i.ibb.co/yVGGsJt/sigmund-a19-OVaa2rz-A-unsplash.jpg",
-      id: 456,
-    },
-    {
-      firstName: "Ucup",
-      distance: "12 miles",
-      age: "25",
-      photoURL: "https://i.ibb.co/W3Mf52h/nate-J5-U-22o1ubw-unsplash.jpg",
-      id: 789,
-    },
-  ];
-
   const SwipeLeft = async (cardIndex) => {
     if (!profiles[cardIndex]) return;
     const userSwiped = profiles[cardIndex];
-    console.log(`You Swiped Pass on ${profiles.displayName}`);
+    console.log(`You Swiped Pass on ${userSwiped.displayName}`);
     setDoc(doc(db, "users", user.uid, "passes", userSwiped.id), userSwiped);
   };
-  const SwipeRight = async (cardIndex) => {};
+  const SwipeRight = async (cardIndex) => {
+    if(!profiles[cardIndex])return;
+
+    const userSwiped = profiles[cardIndex];
+    console.log(`You Swiped Right on ${userSwiped.displayName}`);
+    const loggedInProfile = await (
+      await getDoc(db, "users", user.uid))
+      .data();
+    
+    getDoc(doc(db, "users", userSwiped.id, 'swipes', user.uid)).then(
+      (documentSnapshot) => {
+        if(documentSnapshot.exists()){
+          //user match with you before you matched with them
+          //Create a MATCH!!
+          console.log(`Hooray, you MATCHED with ${userSwiped.displayName}`);
+          setDoc(
+            doc(db, "users", user.uid, "swipes", userSwiped.id), 
+            userSwiped
+            );
+
+            //CREATE A MATCH!!
+            setDoc(doc(db, 'matches', generateId(user.uid, userSwiped.id)), {
+              users:{
+                [user.uid]:loggedInProfile,
+                [userSwiped.id]:userSwiped
+              },
+              userMatched:[user.uid, userSwiped.id],
+              timestamp:serverTimestamp(),
+            });
+            navigation.navigate("Match", {
+              loggedInProfile, 
+              userSwiped,
+            });
+        } else{
+
+          setDoc(
+            doc(db, "users", user.uid, "swipes", userSwiped.id), 
+            userSwiped
+            );
+    
+        }
+      }
+      );
+
+  };
 
   return (
     <SafeAreaView className="flex-1">
@@ -156,7 +181,7 @@ const HomeScreen = () => {
                     color: "white",
                   }}>
                   {" "}
-                  {card.firstName}, {card.age}{" "}
+                  {card.displayName}, {card.age}{" "}
                 </Text>
                 <Text
                   style={{
