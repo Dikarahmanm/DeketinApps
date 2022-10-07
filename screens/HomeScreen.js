@@ -12,7 +12,19 @@ import useAuth from "../hooks/useAuth";
 import { AntDesign, Entypo } from "@expo/vector-icons";
 import Swiper from "react-native-deck-swiper";
 import { async } from "@firebase/util";
-import { query, collection, doc,getDoc, getDocs, onSnapshot, setDoc, where, DocumentSnapshot, Timestamp, serverTimestamp } from "firebase/firestore";
+import {
+  query,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  onSnapshot,
+  setDoc,
+  where,
+  DocumentSnapshot,
+  Timestamp,
+  serverTimestamp,
+} from "firebase/firestore";
 import { useRef } from "react";
 import { db } from "../firebase";
 import generateId from "../lib/generateId";
@@ -24,33 +36,43 @@ const HomeScreen = () => {
   const [profiles, SetProfiles] = useState([]);
 
   useLayoutEffect(
-    () => 
-    onSnapshot(doc(db, "users", user.uid), (snapshot) => {
-      if (!snapshot.exists()) {
-        navigation.navigate("Modal");
-      }
-    }),
+    () =>
+      onSnapshot(doc(db, "users", user.uid), (snapshot) => {
+        if (!snapshot.exists()) {
+          navigation.navigate("Modal");
+        }
+      }),
     []
   );
 
-  useEffect(()=>{
+  useEffect(() => {
     let unsub;
     const fetchCards = async () => {
-      const passes = await getDocs(collection(db, 'users', user.uid, 'passes')).then
-      (snapshot => snapshot.docs.map(doc => doc.id));
-      const swipes = await getDocs(collection(db, 'users', user.uid, 'swipes')).then
-      (snapshot => snapshot.docs.map(doc => doc.id));
-      const passedUserIds = passes.length > 0 ? passes : ['test'];
-      const swipesUserIds = swipes.length > 0 ? swipes : ['test'];
+      const passes = await getDocs(
+        collection(db, "users", user.uid, "passes")
+      ).then((snapshot) => snapshot.docs.map((doc) => doc.id));
+      const swipes = await getDocs(
+        collection(db, "users", user.uid, "swipes")
+      ).then((snapshot) => snapshot.docs.map((doc) => doc.id));
+      const passedUserIds = passes.length > 0 ? passes : ["test"];
+      const swipesUserIds = swipes.length > 0 ? swipes : ["test"];
       console.log([...swipesUserIds]);
-      unsub = onSnapshot(query(collection(db, 'users'), where('id', 'not-in', [...passedUserIds, ...swipesUserIds])), snapshot =>{
-        SetProfiles(
-          snapshot.docs.filter(doc => doc.id !== user.uid ).map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }))
-        );
-    });
+      unsub = onSnapshot(
+        query(
+          collection(db, "users"),
+          where("id", "not-in", [...passedUserIds, ...swipesUserIds])
+        ),
+        (snapshot) => {
+          SetProfiles(
+            snapshot.docs
+              .filter((doc) => doc.id !== user.uid)
+              .map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+              }))
+          );
+        }
+      );
     };
     fetchCards();
     return unsub;
@@ -69,47 +91,45 @@ const HomeScreen = () => {
     setDoc(doc(db, "users", user.uid, "passes", userSwiped.id), userSwiped);
   };
   const SwipeRight = async (cardIndex) => {
-    if(!profiles[cardIndex])return;
+    if (!profiles[cardIndex]) return;
 
     const userSwiped = profiles[cardIndex];
     console.log(`You Swiped Right on ${userSwiped.displayName}`);
-    
+
     getDoc(doc(db, "users", userSwiped.id, "swipes", user.uid)).then(
       (documentSnapshot) => {
-        if(documentSnapshot.exists()){
+        if (documentSnapshot.exists()) {
           console.log("A MAtch");
           //user match with you before you matched with them
           //Create a MATCH!!
           console.log(`Hooray, you MATCHED with ${userSwiped.displayName}`);
           setDoc(
-            doc(db, "users", user.uid, "swipes", userSwiped.id), 
+            doc(db, "users", user.uid, "swipes", userSwiped.id),
             userSwiped
-            );
+          );
 
-            //CREATE A MATCH!!
-            setDoc(doc(db, 'matches', generateId(user.uid, userSwiped.id)), {
-              users:{
-                [user.uid]:loggedInProfile,
-                [userSwiped.id]:userSwiped
-              },
-              userMatched:[user.uid, userSwiped.id],
-              timestamp:serverTimestamp(),
-            });
-            navigation.navigate("Match", {
-              loggedInProfile, 
-              userSwiped,
-            });
-        } else{
+          //CREATE A MATCH!!
+          setDoc(doc(db, "matches", generateId(user.uid, userSwiped.id)), {
+            users: {
+              [user.uid]: loggedInProfile,
+              [userSwiped.id]: userSwiped,
+            },
+            userMatched: [user.uid, userSwiped.id],
+            timestamp: serverTimestamp(),
+          });
+          navigation.navigate("Match", {
+            loggedInProfile,
+            userSwiped,
+          });
+        } else {
           console.log("Not A MAtch");
           setDoc(
-            doc(db, "users", user.uid, "swipes", userSwiped.id), 
+            doc(db, "users", user.uid, "swipes", userSwiped.id),
             userSwiped
-            );
-    
+          );
         }
       }
-      );
-
+    );
   };
 
   return (
@@ -208,7 +228,8 @@ const HomeScreen = () => {
         />
       </View>
       <View className="flex flex-row justify-evenly" style={{ bottom: "5%" }}>
-        <TouchableOpacity onPress={() => swipeRef.current.swipeLeft()}>
+        {/* <TouchableOpacity onPress={() => swipeRef.current.swipeLeft()}> */}
+        <TouchableOpacity onPress={() => navigation.navigate("Match")}>
           <Entypo
             name="cross"
             size={45}

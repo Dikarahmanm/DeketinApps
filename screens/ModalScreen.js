@@ -62,13 +62,13 @@ const ChatScreen = () => {
         className="text-center text-xl pb=2"
         placeholder="Enter a Profile Pic URL"></TextInput>
       <Text className="text-center p-4 font-bold text-red-400">
-        Step 2 : The Job
+        Step 2 : The Faculty
       </Text>
       <TextInput
         value={job}
         onChangeText={setJob}
         className="text-center text-xl pb=2"
-        placeholder="Enter your occupation"></TextInput>
+        placeholder="Enter your faculty"></TextInput>
       <Text className="text-center p-4 font-bold text-red-400">
         Step 3 : The Age
       </Text>
