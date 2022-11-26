@@ -9,7 +9,7 @@ import {
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import useAuth from "../hooks/useAuth";
-import { AntDesign, Entypo } from "@expo/vector-icons";
+import { AntDesign, Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
 import Swiper from "react-native-deck-swiper";
 import { async } from "@firebase/util";
 import {
@@ -135,32 +135,26 @@ const HomeScreen = () => {
   return (
     <SafeAreaView className="flex-1">
       {/*Header */}
-      <View>
-        <TouchableOpacity className="bg-black">
-          <Image
-            source={require("../assets/Group9.png")}
-            style={{
-              top: "80%",
-              justifyContent: "center",
-              alignItems: "center",
-              marginLeft: "30%",
-            }}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <AntDesign
-            name="filter"
-            size={24}
-            color="black"
-            style={{
-              height: 34,
-              width: 34,
-              marginLeft: "85%",
-              top: "32%",
-            }}
-          />
-        </TouchableOpacity>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "center",
+          marginTop: 40,
+        }}>
+        <View>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Modal")}
+            style={{}}>
+            <Image source={require("../assets/Group9.png")} />
+          </TouchableOpacity>
+        </View>
+        <View style={{ left: "150%", top: "1%" }}>
+          <TouchableOpacity
+            style={{}}
+            onPress={() => navigation.navigate("Match")}>
+            <MaterialCommunityIcons name="bell" size={24} color="#2A9287" />
+          </TouchableOpacity>
+        </View>
       </View>
 
       {/*End of Header */}
@@ -185,7 +179,7 @@ const HomeScreen = () => {
             card ? (
               <View
                 key={card.id}
-                className="bg-white h-3/4 rounded-xl relative">
+                className="bg-white h-1/2 rounded-xl relative">
                 <Image
                   className="absolute top-0 h-full w-full rounded-xl"
                   source={{ uri: card.photoURL }}
@@ -229,23 +223,28 @@ const HomeScreen = () => {
       </View>
       <View className="flex flex-row justify-evenly" style={{ bottom: "5%" }}>
         {/* <TouchableOpacity onPress={() => swipeRef.current.swipeLeft()}> */}
-        <TouchableOpacity onPress={() => navigation.navigate("Match")}>
-          <Entypo
-            name="cross"
-            size={45}
-            color="white"
-            style={{
-              borderRadius: 32,
-              width: 64,
-              height: 64,
-              backgroundColor: "red",
-              paddingLeft: 10,
-              paddingTop: 10,
-              position: "relative",
-            }}
-            className="items-center justify-center rounded-full w-16 h-16 bg-red-400"
-          />
-        </TouchableOpacity>
+        <View
+          style={{
+            flexDirection: "row",
+          }}>
+          <TouchableOpacity onPress={() => navigation.navigate("Match")}>
+            <Entypo
+              name="cross"
+              size={45}
+              color="white"
+              style={{
+                borderRadius: 32,
+                width: 64,
+                height: 64,
+                backgroundColor: "red",
+                paddingLeft: 10,
+                paddingTop: 10,
+                position: "relative",
+              }}
+              className="items-center justify-center rounded-full w-16 h-16 bg-red-400"
+            />
+          </TouchableOpacity>
+        </View>
 
         <TouchableOpacity onPress={() => navigation.navigate("Modal")}>
           <Entypo
