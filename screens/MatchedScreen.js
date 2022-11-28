@@ -6,7 +6,7 @@ import useAuth from "../hooks/useAuth";
 const MatchedScreen = () => {
   const navigation = useNavigation();
   const { params } = useRoute();
-
+  const {loggedInProfile, userSwiped} = params;
   // const { loggedInProfile, userSwiped } = params;
 
   return (
@@ -36,18 +36,12 @@ const MatchedScreen = () => {
             color: "white",
             fontSize: 14,
           }}>
-          userSwiped.displayName likes you too
+          {userSwiped.displayName} likes you too
         </Text>
-        <View
-          style={{
-            top: "12%",
-            alignSelf: "center",
-          }}>
-          <Text>Ini gambar</Text>
-          {/* <Image></Image>
-          
-          <Image></Image> */}
-        </View>
+        <Image
+                  className="absolute top-0 h-full w-full rounded-xl"
+                  source={{ uri: loggedInProfile.photoURL }}
+                />
 
         <TouchableOpacity
           style={{

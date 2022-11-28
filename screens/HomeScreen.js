@@ -34,6 +34,7 @@ const HomeScreen = () => {
   const { user, logout } = useAuth();
   const swipeRef = useRef(null);
   const [profiles, SetProfiles] = useState([]);
+  const [mainCardIDx, setMainCardIdx] = useState([]);
 
   useLayoutEffect(
     () =>
@@ -94,6 +95,7 @@ const HomeScreen = () => {
     if (!profiles[cardIndex]) return;
 
     const userSwiped = profiles[cardIndex];
+    const loggedInProfile = await ( await getDoc(doc(db, "users", user.uid))).data();
     console.log(`You Swiped Right on ${userSwiped.displayName}`);
 
     getDoc(doc(db, "users", userSwiped.id, "swipes", user.uid)).then(
@@ -107,7 +109,6 @@ const HomeScreen = () => {
             doc(db, "users", user.uid, "swipes", userSwiped.id),
             userSwiped
           );
-
           //CREATE A MATCH!!
           setDoc(doc(db, "matches", generateId(user.uid, userSwiped.id)), {
             users: {
@@ -227,7 +228,7 @@ const HomeScreen = () => {
           style={{
             flexDirection: "row",
           }}>
-          <TouchableOpacity onPress={() => navigation.navigate("Match")}>
+          <TouchableOpacity onPress={() => swipeRef.current.swipeLeft()}>
             <Entypo
               name="cross"
               size={45}
@@ -246,7 +247,7 @@ const HomeScreen = () => {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity onPress={() => navigation.navigate("Modal")}>
+        <TouchableOpacity onPress={() => swipeRef.current.swipeRight()}>
           <Entypo
             name="heart"
             size={36}
