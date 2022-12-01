@@ -7,10 +7,10 @@ import {
   StatusBar,
   KeyboardAvoidingView,
   Button,
+  ScrollView,
 } from "react-native";
 import React, { useLayoutEffect } from "react";
-import { Foundation, Ionicons } from "@expo/vector-icons";
-import { TailwindProvider } from "tailwind-rn/dist";
+import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import { SelectList } from "react-native-dropdown-select-list";
 import { TextInput } from "react-native";
@@ -46,131 +46,135 @@ const LaunchScreen_3 = () => {
       }}
       style={{
         flex: 1,
-        alignItems: "center",
       }}>
-      <KeyboardAvoidingView
-        style={{ position: "absolute", bottom: 0, left: 0, right: 0 }}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        keyboardVerticalOffset={headerHeight}>
-        <StatusBar hidden={true} />
-        <View
-          style={{
-            flex: 1,
-            padding: 10,
-          }}>
+      <View>
+        <SafeAreaView style={{ position: "relative" }}>
+          <StatusBar hidden={true} />
           <View
             style={{
-              flexDirection: "row",
-              backgroundColor: "white",
-              borderRadius: 10,
-              width: 52,
-              height: 52,
-              top: "-180%",
-              marginLeft: 20,
+              flex: 1,
+              padding: 10,
             }}>
-            <TouchableOpacity>
-              <Ionicons
-                name="chevron-back-outline"
-                size={42}
-                color="#2A9287"
+            <View
+              style={{
+                flexDirection: "row",
+                backgroundColor: "white",
+                borderRadius: 10,
+                width: 52,
+                height: 52,
+                marginLeft: 20,
+                top: 40,
+              }}>
+              <TouchableOpacity>
+                <Ionicons
+                  name="chevron-back-outline"
+                  size={42}
+                  color="#2A9287"
+                  style={{
+                    alignContent: "center",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    position: "absolute",
+                    margin: 4,
+                  }}></Ionicons>
+              </TouchableOpacity>
+            </View>
+            {/* Button Back */}
+
+            <View
+              style={{
+                position: "absolute",
+                alignSelf: "center",
+                padding: 20,
+              }}>
+              <Text
                 style={{
+                  fontWeight: "550",
+                  fontStyle: "normal",
+                  color: "white",
+                  top: 120,
+                  textAlign: "justify",
+                  fontSize: 24,
+                }}>
+                Input your number
+              </Text>
+            </View>
+
+            <View
+              style={{
+                flexDirection: "row",
+                position: "absolute",
+                justifyContent: "center",
+                paddingLeft: 39,
+                top: 200,
+              }}>
+              <SelectList
+                setSelected={setSelected}
+                data={data}
+                defaultOption={{ key: "1", value: "ID +62" }}
+              />
+              <TextInput
+                style={{
+                  height: 48,
+                  borderWidth: 1,
+                  marginLeft: 20,
+                  width: 200,
+                  borderColor: "gray",
+                  borderRadius: 12,
+                  alignItems: "center",
                   alignContent: "center",
                   justifyContent: "center",
-                  alignItems: "center",
-                  position: "absolute",
-                  margin: 4,
-                }}></Ionicons>
-            </TouchableOpacity>
-          </View>
-          {/* Button Back */}
+                }}
+                placeholder="Phone Number"
+                placeholderTextColor={"black"}
+              />
+            </View>
 
-          <View
-            style={{
-              flexDirection: "row",
-              alignContent: "center",
-              justifyContent: "center",
-              alignItems: "center",
-              top: "-170%",
-            }}>
-            <Text style={{ color: "white", fontSize: 23, fontWeight: "550" }}>
-              {" "}
-              Input your number{" "}
-            </Text>
-          </View>
-
-          <View
-            style={{
-              flexDirection: "row",
-              position: "absolute",
-              justifyContent: "center",
-              top: "-550%",
-              paddingLeft: 39,
-            }}>
-            <SelectList
-              setSelected={setSelected}
-              data={data}
-              defaultOption={{ key: "1", value: "ID +62" }}
-            />
-            <TextInput
+            <View
               style={{
-                height: 48,
-                borderWidth: 1,
-                marginLeft: 20,
-                width: 200,
-                borderColor: "gray",
-                borderRadius: 12,
-                alignItems: "center",
-                alignContent: "center",
-                justifyContent: "center",
-              }}
-              placeholder="Phone Number"
-              placeholderTextColor={"black"}
-            />
-          </View>
-
-          <View
-            style={{
-              position: "absolute",
-              alignSelf: "center",
-              padding: 20,
-            }}>
-            <Text
-              style={{
-                fontWeight: "400",
-                fontStyle: "normal",
-                color: "white",
-                top: "-450%",
-                textAlign: "justify",
+                position: "absolute",
+                alignSelf: "center",
+                padding: 20,
               }}>
-              When you tap Continue. Deketin will send a text with verification
-              code. Message and data rates may apply. The verified phone number
-              can be used to login. Learn what happens when your number changes.
-            </Text>
-          </View>
+              <Text
+                style={{
+                  fontWeight: "400",
+                  fontStyle: "normal",
+                  color: "white",
+                  top: 250,
+                  textAlign: "justify",
+                }}>
+                When you tap Continue. Deketin will send a text with
+                verification code. Message and data rates may apply. The
+                verified phone number can be used to login. Learn what happens
+                when your number changes.
+              </Text>
+            </View>
 
-          <View
-            style={{
-              width: 300,
-              backgroundColor: "white",
-              position: "absolute",
-              alignSelf: "center",
-              borderRadius: 25,
-              height: 42,
-              top: "-300%",
-            }}>
-            <Text
+            <View
               style={{
-                color: "#2FA99D",
-                fontSize: 16,
-                fontWeight: "500",
-                textAlign: "center",
-                paddingTop: 10,
+                width: 300,
+                backgroundColor: "white",
+                position: "absolute",
+                alignSelf: "center",
+                borderRadius: 25,
+                height: 42,
+                top: 400,
               }}>
-              CONTINUE
-            </Text>
+              <Text
+                style={{
+                  color: "#2FA99D",
+                  fontSize: 16,
+                  fontWeight: "500",
+                  textAlign: "center",
+                  paddingTop: 10,
+                }}>
+                CONTINUE
+              </Text>
+            </View>
           </View>
-        </View>
-      </KeyboardAvoidingView>
+        </SafeAreaView>
+      </View>
     </ImageBackground>
   );
 };
