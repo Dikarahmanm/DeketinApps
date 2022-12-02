@@ -10,6 +10,7 @@ import LoginPhone from "./screens/LoginPhone";
 import ModalScreen from "./screens/ModalScreen";
 import MatchedScreen from "./screens/MatchedScreen";
 import ProfileDetails from "./screens/ProfileDetails";
+import ProfileDetails_3 from "./screens/ProfileDetails_3";
 const Stack = createNativeStackNavigator();
 
 const StackNavigator = () => {
@@ -35,7 +36,7 @@ const StackNavigator = () => {
       ) : (
         <>
           <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="LoginPhone" component={ProfileDetails} />
+          <Stack.Screen name="LoginPhone" component={ProfileDetails_3} />
         </>
       )}
     </Stack.Navigator>
