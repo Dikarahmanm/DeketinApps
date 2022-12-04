@@ -118,7 +118,7 @@ const ProfileDetails_3 = () => {
               style={{ top: -4.5, marginLeft: 240 }}
             />
           </View>
-          <View
+          <TouchableOpacity
             style={{
               backgroundColor: "#2A9287",
               width: 295,
@@ -140,7 +140,7 @@ const ProfileDetails_3 = () => {
               }}>
               Submit
             </Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     </View>

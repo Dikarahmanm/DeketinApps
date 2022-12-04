@@ -5,11 +5,14 @@ import {
   StatusBar,
   Image,
   TextInput,
+  TouchableOpacity,
 } from "react-native";
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { SafeAreaView } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/core";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
+import Modal from "react-native-modal";
+import DatePicker from "react-native-modern-datepicker";
 
 const ProfileDetails = () => {
   const navigation = useNavigation();
@@ -19,6 +22,12 @@ const ProfileDetails = () => {
       headerShown: false,
     });
   }, []);
+
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
   return (
     <View>
       <SafeAreaView>
@@ -33,7 +42,7 @@ const ProfileDetails = () => {
               style={{
                 fontSize: 34,
                 fontWeight: "bold",
-                top: 116,
+                top: 105,
                 padding: 10,
               }}>
               Profile details
@@ -43,10 +52,10 @@ const ProfileDetails = () => {
               className="absolute"
               style={{
                 backgroundColor: "gray",
-                top: 250,
+                top: 200,
                 borderRadius: 40,
                 alignItems: "center",
-                marginLeft: 65,
+                marginLeft: 48,
               }}
               source={{
                 uri: "https://links.papareact.com/mg9",
@@ -60,7 +69,7 @@ const ProfileDetails = () => {
                 width: 50,
                 height: 50,
                 backgroundColor: "#2A9287",
-                top: 270,
+                top: 150,
                 marginLeft: 146,
                 borderRadius: 30,
                 borderColor: "white",
@@ -76,7 +85,7 @@ const ProfileDetails = () => {
           </View>
           <View
             style={{
-              top: 290,
+              top: 180,
             }}>
             <TextInput
               style={{
@@ -136,7 +145,8 @@ const ProfileDetails = () => {
               style={{
                 marginTop: 12,
                 marginLeft: 110,
-                top: 78,
+                top: -33,
+                color: "gray",
               }}>
               First Name
             </Text>
@@ -145,7 +155,8 @@ const ProfileDetails = () => {
               style={{
                 marginTop: 15,
                 marginLeft: 110,
-                top: 112,
+                top: 0,
+                color: "gray",
               }}>
               Last Name
             </Text>
@@ -153,12 +164,14 @@ const ProfileDetails = () => {
               style={{
                 marginTop: 15,
                 marginLeft: 110,
-                top: 146,
+                top: 34,
+                color: "gray",
               }}>
               Jurusan
             </Text>
           </View>
-          <View
+          <TouchableOpacity
+            onPress={toggleModal}
             style={{
               width: 300,
               backgroundColor: "#ECFCFA",
@@ -184,7 +197,67 @@ const ProfileDetails = () => {
               color="#40E0D0"
               style={{ top: -22, paddingLeft: 30 }}
             />
-          </View>
+          </TouchableOpacity>
+          <Modal
+            onBackdropPress={() => setModalVisible(false)}
+            onBackButtonPress={() => setModalVisible(false)}
+            isVisible={isModalVisible}
+            swipeDirection="down"
+            onSwipeComplete={toggleModal}
+            animationIn="bounceInUp"
+            animationOut="bounceOutDown"
+            animationInTiming={900}
+            animationOutTiming={500}
+            backdropTransitionInTiming={1000}
+            backdropTransitionOutTiming={500}
+            style={styles.modal}>
+            <View style={styles.modalContent}>
+              <View style={styles.center}>
+                <View style={styles.barIcon} />
+                <DatePicker
+                  options={{
+                    backgroundColor: "white",
+                    textHeaderColor: "#2A9287",
+                    textDefaultColor: "black",
+                    selectedTextColor: "#fff",
+                    mainColor: "#2A9287",
+                    textSecondaryColor: "#40E0D0",
+                    borderColor: "rgba(122, 146, 165, 0.1)",
+                  }}
+                  current="2020-07-13"
+                  selected="2020-07-23"
+                  mode="calendar"
+                  minuteInterval={30}
+                  style={{ borderRadius: 10 }}
+                />
+              </View>
+              <View>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: "#2A9287",
+                    width: 295,
+                    top: 0,
+                    borderRadius: 12,
+                    alignContent: "center",
+                    alignSelf: "center",
+                    margin: 10,
+                    height: 58,
+                  }}>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontWeight: "bold",
+                      marginLeft: 0,
+                      top: 18,
+                      color: "white",
+                      alignSelf: "center",
+                    }}>
+                    Save
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
         </View>
       </SafeAreaView>
     </View>
@@ -193,4 +266,44 @@ const ProfileDetails = () => {
 
 export default ProfileDetails;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  flexView: {
+    flex: 1,
+    backgroundColor: "white",
+  },
+  modal: {
+    justifyContent: "flex-end",
+    margin: 0,
+  },
+  modalContent: {
+    backgroundColor: "#fff",
+    paddingTop: 12,
+    paddingHorizontal: 12,
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    minHeight: 400,
+    paddingBottom: 20,
+  },
+  center: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  barIcon: {
+    width: 60,
+    height: 5,
+    backgroundColor: "#bbb",
+    borderRadius: 3,
+  },
+  text: {
+    color: "#bbb",
+    fontSize: 24,
+    marginTop: 100,
+  },
+  btnContainer: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    height: 500,
+  },
+});
