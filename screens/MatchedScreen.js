@@ -6,8 +6,7 @@ import useAuth from "../hooks/useAuth";
 const MatchedScreen = () => {
   const navigation = useNavigation();
   const { params } = useRoute();
-  // const {loggedInProfile, userSwiped} = params;
-  // const { loggedInProfile, userSwiped } = params;
+  const { loggedInProfile, userSwiped } = params();
 
   return (
     <View
@@ -38,10 +37,18 @@ const MatchedScreen = () => {
           }}>
           {userSwiped.displayName} likes you too
         </Text>
-        
-        {/* Image1 Here */}
-        {/* Image2 Here */}
-
+        <View className="flex-row justify-evenly mt-5">
+          <Image
+            className="h-32 w-32 rounded-full"
+            source={{ uri: loggedInProfile.photoURL }}
+          />
+          <Image
+            className="h-32 w-32 rounded-full"
+            source={{ uri: userSwiped.photoURL }}
+          />
+          {/* Image1 Here */}
+          {/* Image2 Here */}
+        </View>
         <TouchableOpacity
           style={{
             top: "80%",
@@ -63,6 +70,7 @@ const MatchedScreen = () => {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
+          onPress={() => navigation.goBack()}
           style={{
             top: "81%",
             width: "80%",

@@ -30,18 +30,19 @@ const StackNavigator = () => {
             <Stack.Group>
               <Stack.Screen name="Home" component={HomeScreen} />
               <Stack.Screen name="Chat" component={ChatScreen} />
+              <Stack.Screen name="Match" component={MatchedScreen} />
             </Stack.Group>
             <Stack.Group screenOptions={{ presentation: "modal" }}>
               <Stack.Screen name="Modal" component={ModalScreen} />
             </Stack.Group>
             <Stack.Group screenOptions={{ presentation: "transparentModal" }}>
-              <Stack.Screen name="Match" component={MatchedScreen} />
+              {/* <Stack.Screen name="Match" component={MatchedScreen} /> */}
             </Stack.Group>
           </>
         ) : (
           <>
             <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="LoginPhone" component={ProfileDetails_4} />
+            <Stack.Screen name="LoginPhone" component={MatchedScreen} />
           </>
         )}
       </Stack.Navigator>
