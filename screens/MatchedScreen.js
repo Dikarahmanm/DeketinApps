@@ -6,7 +6,7 @@ import useAuth from "../hooks/useAuth";
 const MatchedScreen = () => {
   const navigation = useNavigation();
   const { params } = useRoute();
-  const { loggedInProfile, userSwiped } = params();
+  // const { loggedInProfile, userSwiped } = params;
 
   return (
     <View
