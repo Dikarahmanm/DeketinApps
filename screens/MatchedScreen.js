@@ -38,10 +38,9 @@ const MatchedScreen = () => {
           }}>
           {userSwiped.displayName} likes you too
         </Text>
-        <Image
-                  className="absolute top-0 h-full w-full rounded-xl"
-                  source={{ uri: loggedInProfile.photoURL }}
-                />
+        
+        {/* Image1 Here */}
+        {/* Image2 Here */}
 
         <TouchableOpacity
           style={{
