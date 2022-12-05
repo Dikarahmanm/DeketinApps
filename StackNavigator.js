@@ -41,7 +41,7 @@ const StackNavigator = () => {
         ) : (
           <>
             <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="LoginPhone" component={ProfileDetails} />
+            <Stack.Screen name="LoginPhone" component={ProfileDetails_4} />
           </>
         )}
       </Stack.Navigator>

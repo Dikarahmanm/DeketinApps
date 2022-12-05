@@ -16,6 +16,7 @@ import DatePicker from "react-native-modern-datepicker";
 
 const ProfileDetails = () => {
   const navigation = useNavigation();
+  const [selectedDate, setSelectedDate] = useState("");
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -224,15 +225,18 @@ const ProfileDetails = () => {
                     textSecondaryColor: "#40E0D0",
                     borderColor: "rgba(122, 146, 165, 0.1)",
                   }}
-                  current="2020-07-13"
-                  selected="2020-07-23"
+                  onSelectedChange={(selectedDate) =>
+                    setSelectedDate(selectedDate)
+                  }
+                  selected={selectedDate}
                   mode="calendar"
                   minuteInterval={30}
-                  style={{ borderRadius: 10 }}
+                  style={{ borderRadius: 30 }}
                 />
               </View>
               <View>
                 <TouchableOpacity
+                  onPress={() => setSelectedDate(selectedDate)}
                   style={{
                     backgroundColor: "#2A9287",
                     width: 295,
@@ -279,8 +283,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     paddingTop: 12,
     paddingHorizontal: 12,
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
+    borderTopRightRadius: 50,
+    borderTopLeftRadius: 50,
     minHeight: 400,
     paddingBottom: 20,
   },
