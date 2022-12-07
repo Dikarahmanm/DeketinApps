@@ -57,7 +57,6 @@ const HomeScreen = () => {
       ).then((snapshot) => snapshot.docs.map((doc) => doc.id));
       const passedUserIds = passes.length > 0 ? passes : ["test"];
       const swipesUserIds = swipes.length > 0 ? swipes : ["test"];
-      console.log([...swipesUserIds]);
       unsub = onSnapshot(
         query(
           collection(db, "users"),
@@ -88,7 +87,6 @@ const HomeScreen = () => {
   const SwipeLeft = async (cardIndex) => {
     if (!profiles[cardIndex]) return;
     const userSwiped = profiles[cardIndex];
-    console.log(`You Swiped Pass on ${userSwiped.displayName}`);
     setDoc(doc(db, "users", user.uid, "passes", userSwiped.id), userSwiped);
   };
   const SwipeRight = async (cardIndex) => {
@@ -96,15 +94,12 @@ const HomeScreen = () => {
 
     const userSwiped = profiles[cardIndex];
     const loggedInProfile = await ( await getDoc(doc(db, "users", user.uid))).data();
-    console.log(`You Swiped Right on ${userSwiped.displayName}`);
 
     getDoc(doc(db, "users", userSwiped.id, "swipes", user.uid)).then(
       (documentSnapshot) => {
         if (documentSnapshot.exists()) {
-          console.log("A MAtch");
           //user match with you before you matched with them
           //Create a MATCH!!
-          console.log(`Hooray, you MATCHED with ${userSwiped.displayName}`);
           setDoc(
             doc(db, "users", user.uid, "swipes", userSwiped.id),
             userSwiped
@@ -123,7 +118,6 @@ const HomeScreen = () => {
             userSwiped,
           });
         } else {
-          console.log("Not A MAtch");
           setDoc(
             doc(db, "users", user.uid, "swipes", userSwiped.id),
             userSwiped
@@ -132,9 +126,8 @@ const HomeScreen = () => {
       }
     );
   };
-
   return (
-    <SafeAreaView className="flex-1">
+    <SafeAreaView className="flex-1" style={{flex:1, backgroundColor:"#ebebeb"}}>
       {/*Header */}
       <View
         style={{
@@ -152,17 +145,16 @@ const HomeScreen = () => {
         <View style={{ left: "150%", top: "1%" }}>
           <TouchableOpacity
             style={{}}
-            onPress={() => navigation.navigate("Match")}>
+            onPress={() => navigation.navigate("Chat")}>
             <MaterialCommunityIcons name="bell" size={24} color="#2A9287" />
           </TouchableOpacity>
         </View>
       </View>
 
       {/*End of Header */}
-
-      {/*CARDS */}
-      <View className="flex-1 -mt-6">
-        <Swiper
+      
+      <View className="flex-1" style={{flex:1, marginTop:"-8%"}}>
+      <Swiper
           ref={swipeRef}
           containerStyle={{ backgroundColor: "transparent" }}
           cards={profiles}
@@ -178,56 +170,38 @@ const HomeScreen = () => {
           }}
           renderCard={(card) =>
             card ? (
-              <View
-                key={card.id}
-                className="bg-white h-1/2 rounded-xl relative">
-                <Image
-                  className="absolute top-0 h-full w-full rounded-xl"
-                  source={{ uri: card.photoURL }}
-                />
-                <Text
-                  style={{
-                    top: "85%",
-                    fontSize: 24,
-                    left: "5%",
-                    fontWeight: "bold",
-                    color: "white",
-                  }}>
-                  {" "}
-                  {card.displayName}, {card.age}{" "}
-                </Text>
-                <Text
-                  style={{
-                    top: "85.1%",
-                    fontSize: 18,
-                    left: "5%",
-                    fontStyle: "normal",
-                    color: "white",
-                  }}>
-                  {" "}
-                  {card.distance}{" "}
-                </Text>
+              <View  style={{backgroundColor:"#FFFFFF", height:"75%", borderRadius:25, borderWidth:1, borderColor:"#e3e3e3"}}>
+                
+                <Image style={{height:"85%", width:"100%", top:0 , borderRadius:25}} source={{ uri: card.photoURL }}/>
+                <View  style={{flexDirection: "row",justifyContent: "space-between",alignItems:"center",}}>
+                  <View style={{marginLeft:"5%", marginTop:"2%"}}>
+                    <Text style={{fontWeight:"bold", fontSize:20, color:"#1c1c1c"}}>{card.displayName}</Text>
+                    <Text style={{fontSize:16, color:"#878787"}}>{card.job}</Text>
+                  </View>
+                    <Text style={{marginTop:"5%", marginRight:"8%", fontWeight:"bold", fontSize:25, color:"#878787"}}>{card.age}</Text>
+                </View>
               </View>
+                
             ) : (
-              <View className="relative bg-white h-3/4 rounded-xl justify-center items-center">
-                <Text className="font-bold pb-5">No more profiles</Text>
-                <Image
-                  className="h-20 w-20"
-                  height={50}
-                  width={50}
-                  source={{ uri: "https://links.papareact.com/6gb" }}
-                />
+              <View  style={{backgroundColor:"#FFFFFF", height:"75%", borderRadius:25, justifyContent:"center", alignItems:"center", borderWidth:1, borderColor:"#e3e3e3"}}>
+                <Text style={{fontWeight:"bold", fontSize:18, color:"#1c1c1c"}}>No More Profiles</Text>
+                <Image style={{height:"40%", width:"40%", resizeMode:"contain"}} source={{ uri: "https://links.papareact.com/6gb" }}/>
               </View>
             )
           }
-        />
+          />
       </View>
-      <View className="flex flex-row justify-evenly" style={{ bottom: "5%" }}>
+      
+      <View 
+      style={{
+        flexDirection: "row",
+        justifyContent: "center",
+        paddingBottom:"5%",
+      }}>
         {/* <TouchableOpacity onPress={() => swipeRef.current.swipeLeft()}> */}
-        <View
-          style={{
-            flexDirection: "row",
-          }}>
+        <View style={{
+          paddingRight: "10%",
+        }}>
           <TouchableOpacity onPress={() => swipeRef.current.swipeLeft()}>
             <Entypo
               name="cross"
@@ -246,8 +220,11 @@ const HomeScreen = () => {
             />
           </TouchableOpacity>
         </View>
-
-        <TouchableOpacity onPress={() => swipeRef.current.swipeRight()}>
+        
+        <View style={{
+          paddingLeft: "10%",
+        }}>
+          <TouchableOpacity onPress={() => swipeRef.current.swipeRight()}>
           <Entypo
             name="heart"
             size={36}
@@ -264,6 +241,8 @@ const HomeScreen = () => {
             className="items-center justify-center rounded-full w-16 h-16 bg-red-400"
           />
         </TouchableOpacity>
+        </View>
+        
       </View>
 
       <Button title="Logout" onPress={() => logout()} />
