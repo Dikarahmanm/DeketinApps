@@ -29,8 +29,8 @@ const StackNavigator = () => {
         {user ? (
           <>
             <Stack.Group>
-              <Stack.Screen name="Home" component={HomeScreen} />
               <Stack.Screen name="Chat" component={ChatScreen} />
+              <Stack.Screen name="Home" component={HomeScreen} />
               <Stack.Screen name="Match" component={MatchedScreen} />
             </Stack.Group>
             <Stack.Group screenOptions={{ presentation: "modal" }}>

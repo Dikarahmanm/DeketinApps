@@ -10,6 +10,8 @@ const image = { uri: "https://i.ibb.co/y6kt0Fb/Rectangle-1.png" };
 
 const MatchedScreen = () => {
   const navigation = useNavigation();
+  const {params} = useRoute();
+  const {loggedInProfile, userSwiped} = params;
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
@@ -44,11 +46,11 @@ const MatchedScreen = () => {
               alignContent: "center",
               top: 152,
             }}>
-            User likes you too
+            {userSwiped.displayName} likes you too
           </Text>
           <View style={{ top: 200, flexDirection: "row" }}>
             <Image
-              source={require("../assets/zaskia.jpg")}
+              source={{uri:loggedInProfile.photoURL,}}
               style={{
                 alignSelf: "center",
                 width: 122,
@@ -58,7 +60,7 @@ const MatchedScreen = () => {
                 marginLeft: 100,
               }}></Image>
             <Image
-              source={require("../assets/ali.jpg")}
+              source={{uri:userSwiped.photoURL,}}
               style={{
                 alignSelf: "center",
                 width: 122,
@@ -84,7 +86,8 @@ const MatchedScreen = () => {
               marginTop: 40,
               paddingTop: 10,
             }}>
-            <TouchableOpacity>
+            <TouchableOpacity
+            onPress={()=>navigation.navigate("Chat")}>
               <Text
                 style={{
                   textAlign: "center",
@@ -106,7 +109,7 @@ const MatchedScreen = () => {
               marginTop: 20,
               paddingTop: 10,
             }}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("Home")}>
               <Text
                 style={{
                   textAlign: "center",
