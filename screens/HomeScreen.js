@@ -170,7 +170,7 @@ const HomeScreen = () => {
           }}
           renderCard={(card) =>
             card ? (
-              <View  style={{backgroundColor:"#FFFFFF", height:"75%", borderRadius:25, borderWidth:1, borderColor:"#e3e3e3"}}>
+              <View key={card.id}  style={{backgroundColor:"#FFFFFF", height:"75%", borderRadius:25, borderWidth:1, borderColor:"#e3e3e3"}}>
                 
                 <Image style={{height:"85%", width:"100%", top:0 , borderRadius:25}} source={{ uri: card.photoURL }}/>
                 <View  style={{flexDirection: "row",justifyContent: "space-between",alignItems:"center",}}>
