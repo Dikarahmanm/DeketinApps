@@ -16,14 +16,14 @@ const ChatRow = ({ matchDetails }) => {
   }, [matchDetails, user]);
 
   return (
-    <TouchableOpacity style={styles.cardShadow}>
+    <TouchableOpacity style={styles.cardShadow} onPress={()=>navigation.navigate("Message", {matchDetails,})}>
       <Image
         className="rounded-full h-16 w-16 mr-4"
-        style={{ borderRadius: 100, height: 64, width: 64, marginRight: 16 }}
+        style={{ borderRadius: 100, height: 64, width: 64,marginBottom:10, marginRight: 16 }}
         source={{ uri: matchedUserInfo?.photoURL }}
       />
 
-      <View>
+      <View style={{marginBottom:20}}>
         <Text
           className="text-lg font-semibold"
           style={{

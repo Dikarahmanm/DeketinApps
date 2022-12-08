@@ -9,6 +9,7 @@ import useAuth from "./hooks/useAuth";
 import LoginPhone from "./screens/LoginPhone";
 import ModalScreen from "./screens/ModalScreen";
 import MatchedScreen from "./screens/MatchedScreen";
+import MessageScreen from "./screens/MessageScreen";
 import ProfileDetails from "./screens/ProfileDetails";
 import ProfileDetails_3 from "./screens/ProfileDetails_3";
 import ProfileDetails_4 from "./screens/ProfileDetails_4";
@@ -29,9 +30,10 @@ const StackNavigator = () => {
         {user ? (
           <>
             <Stack.Group>
-              <Stack.Screen name="Chat" component={ChatScreen} />
               <Stack.Screen name="Home" component={HomeScreen} />
               <Stack.Screen name="Match" component={MatchedScreen} />
+              <Stack.Screen name="Chat" component={ChatScreen} />
+              <Stack.Screen name="Message" component={MessageScreen} />
             </Stack.Group>
             <Stack.Group screenOptions={{ presentation: "modal" }}>
               <Stack.Screen name="Modal" component={ModalScreen} />
