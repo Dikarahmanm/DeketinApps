@@ -13,10 +13,47 @@ import { useNavigation, useRoute } from "@react-navigation/core";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import Modal from "react-native-modal";
 import DatePicker from "react-native-modern-datepicker";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { db } from "../firebase";
+import useAuth from "../hooks/useAuth";
 
 const ProfileDetails = () => {
   const navigation = useNavigation();
   const [selectedDate, setSelectedDate] = useState("");
+  const [email, setEmail] = useState(null);
+  const [photo, setPhoto] = useState(null);
+  const [phone, setPhone] = useState(null);
+  const [job, setJob] = useState(null);
+  const {user} = useAuth();
+
+  const saveUserProfile = () => {
+    
+    var today = new Date();
+    var birthDate = new Date(selectedDate);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+
+    setDoc(doc(db, "users", user.uid), {
+      id: user.uid,
+      displayName: user.displayName,
+      photoURL: photo,
+      job: job,
+      age: age,
+      phone:phone,
+      birth:selectedDate,
+      email:email,
+      timestamp: serverTimestamp(),
+    })
+      .then(() => {
+        navigation.navigate("Home");
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -28,7 +65,11 @@ const ProfileDetails = () => {
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
+
   };
+
+
+
   return (
     <View>
       <SafeAreaView>
@@ -138,6 +179,7 @@ const ProfileDetails = () => {
               placeholder="Jurusan"
               placeholderTextColor={"black"}
               defaultValue={"S1 Informatika"}
+              onChangeText={setJob}
             />
           </View>
 
@@ -189,8 +231,9 @@ const ProfileDetails = () => {
                 fontWeight: "500",
                 textAlign: "center",
                 paddingTop: 10,
-              }}>
-              Chose Birthday Date
+              }}>{
+                selectedDate ? selectedDate : "Choose Birthday Date"
+              }
             </Text>
             <MaterialIcons
               name="date-range"
@@ -236,7 +279,7 @@ const ProfileDetails = () => {
               </View>
               <View>
                 <TouchableOpacity
-                  onPress={() => setSelectedDate(selectedDate)}
+                  onPress={() => {setSelectedDate(selectedDate); setModalVisible(false);}}
                   style={{
                     backgroundColor: "#2A9287",
                     width: 295,
@@ -263,6 +306,10 @@ const ProfileDetails = () => {
             </View>
           </Modal>
         </View>
+        <TouchableOpacity style={{position:"absolute", top:10, right:10, width:100, height:50}}
+        onPress={()=>saveUserProfile()}>
+          <Text style={{color:"#2fd471", fontWeight:"bold", textAlign:"center", textAlignVertical:"center", width:"100%", height:"100%", fontSize:20}}>Save</Text>
+        </TouchableOpacity>
       </SafeAreaView>
     </View>
   );

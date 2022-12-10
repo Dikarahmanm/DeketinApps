@@ -10,7 +10,7 @@ const NotifRow = ({ notifDetails }) => {
   const navigation = useNavigation();
 
   return (
-    <TouchableOpacity style={styles.cardShadow}>
+    <View style={styles.cardShadow}>
       <Image
         className="rounded-full h-16 w-16 mr-4"
         style={{ borderRadius: 100, height: 64, width: 64,marginBottom:10, marginRight: 16 }}
@@ -28,7 +28,7 @@ const NotifRow = ({ notifDetails }) => {
           {notifDetails?.type === "like" ? notifDetails?.userRef?.displayName + " likes you!" : "You matched with " + notifDetails?.userRef?.displayName + "!"}
         </Text>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };
 

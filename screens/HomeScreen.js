@@ -28,6 +28,7 @@ import {
 import { useRef } from "react";
 import { db } from "../firebase";
 import generateId from "../lib/generateId";
+import Navigation from "../components/Navigation";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -40,7 +41,9 @@ const HomeScreen = () => {
     () =>
       onSnapshot(doc(db, "users", user.uid), (snapshot) => {
         if (!snapshot.exists()) {
-          navigation.navigate("Modal");
+          navigation.navigate("ProfileDetails");
+        }else if(!snapshot.data().gender){
+          navigation.navigate("ProfileDetails2");
         }
       }),
     []
@@ -136,6 +139,7 @@ const HomeScreen = () => {
   };
   return (
     <SafeAreaView className="flex-1" style={{flex:1, backgroundColor:"#ebebeb"}}>
+      <View style={{height:"80%"}}>
       {/*Header */}
       <View
         style={{
@@ -152,8 +156,8 @@ const HomeScreen = () => {
         </View>
         <View style={{ left: "150%", top: "1%" }}>
           <TouchableOpacity
-            style={{}}
-            onPress={() => navigation.navigate("Likes")}>
+            style={{width:50, height:50, alignContent:"center"}}
+            onPress={() => navigation.navigate("Notif")}>
             <MaterialCommunityIcons name="bell" size={24} color="#2A9287" />
           </TouchableOpacity>
         </View>
@@ -258,8 +262,8 @@ const HomeScreen = () => {
         </View>
         
       </View>
-
-      <Button title="Logout" onPress={() => logout()} />
+      </View>
+    <Navigation></Navigation>
     </SafeAreaView>
   );
 };
