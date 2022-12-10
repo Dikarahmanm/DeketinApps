@@ -43,7 +43,9 @@ const LikesScreen = () => {
     <SafeAreaView>
         
       <Header title="Likes"/>
-        <FlatList
+      {
+        likes.length > 0 ? (
+          <FlatList
     data={likes}
     style={{height:"90%"}}
     renderItem={({ item }) => (
@@ -106,6 +108,11 @@ const LikesScreen = () => {
     numColumns={2}
     keyExtractor={(item, index) => index.toString()}
   />
+        ):(
+          <Text style={{width:"100%", height:50,fontSize:20, textAlignVertical:"center", color:"#a6a6a6", textAlign:"center"}}>No likes yet!</Text>
+        )
+      }
+        
     </SafeAreaView>
   )
 }
