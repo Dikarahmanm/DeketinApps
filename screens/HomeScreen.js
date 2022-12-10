@@ -83,7 +83,6 @@ const HomeScreen = () => {
       headerShown: false,
     });
   }, []);
-
   const SwipeLeft = async (cardIndex) => {
     if (!profiles[cardIndex]) return;
     const userSwiped = profiles[cardIndex];
@@ -94,7 +93,7 @@ const HomeScreen = () => {
 
     const userSwiped = profiles[cardIndex];
     const loggedInProfile = await ( await getDoc(doc(db, "users", user.uid))).data();
-
+    
     getDoc(doc(db, "users", userSwiped.id, "swipes", user.uid)).then(
       (documentSnapshot) => {
         if (documentSnapshot.exists()) {
@@ -117,6 +116,10 @@ const HomeScreen = () => {
             loggedInProfile,
             userSwiped,
           });
+          setDoc(
+            doc(db, "users", userSwiped.id, "notifs", "match_"+ loggedInProfile.id),
+            {type:"match",userRef: loggedInProfile,timestamp:serverTimestamp(),}
+          );
         } else {
           setDoc(
             doc(db, "users", user.uid, "swipes", userSwiped.id),
@@ -124,6 +127,11 @@ const HomeScreen = () => {
           );
         }
       }
+    );
+
+    setDoc(
+      doc(db, "users", userSwiped.id, "notifs", "like_"+ loggedInProfile.id),
+      {type:"like",userRef: loggedInProfile,timestamp:serverTimestamp(),}
     );
   };
   return (
@@ -145,7 +153,7 @@ const HomeScreen = () => {
         <View style={{ left: "150%", top: "1%" }}>
           <TouchableOpacity
             style={{}}
-            onPress={() => navigation.navigate("Chat")}>
+            onPress={() => navigation.navigate("Likes")}>
             <MaterialCommunityIcons name="bell" size={24} color="#2A9287" />
           </TouchableOpacity>
         </View>
@@ -169,7 +177,9 @@ const HomeScreen = () => {
             SwipeRight(cardIndex);
           }}
           renderCard={(card) =>
-            card ? (
+            <View style={{width:"100%", height:"100%"}}>
+              {
+              card ? (
               <View key={card.id}  style={{backgroundColor:"#FFFFFF", height:"75%", borderRadius:25, borderWidth:1, borderColor:"#e3e3e3"}}>
                 
                 <Image style={{height:"85%", width:"100%", top:0 , borderRadius:25}} source={{ uri: card.photoURL }}/>
@@ -188,6 +198,10 @@ const HomeScreen = () => {
                 <Image style={{height:"40%", width:"40%", resizeMode:"contain"}} source={{ uri: "https://links.papareact.com/6gb" }}/>
               </View>
             )
+              }
+              
+            </View>
+            
           }
           />
       </View>

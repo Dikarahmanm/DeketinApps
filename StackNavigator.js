@@ -15,6 +15,8 @@ import ProfileDetails_3 from "./screens/ProfileDetails_3";
 import ProfileDetails_4 from "./screens/ProfileDetails_4";
 import Profile from "./screens/Profile";
 import test from "./screens/test";
+import NotifScreen from "./screens/NotifScreen";
+import LikesScreen from "./screens/LikesScreen";
 
 const StackNavigator = () => {
   const { user } = useAuth();
@@ -34,6 +36,8 @@ const StackNavigator = () => {
               <Stack.Screen name="Match" component={MatchedScreen} />
               <Stack.Screen name="Chat" component={ChatScreen} />
               <Stack.Screen name="Message" component={MessageScreen} />
+              <Stack.Screen name="Notif" component={NotifScreen} />
+              <Stack.Screen name="Likes" component={LikesScreen} />
             </Stack.Group>
             <Stack.Group screenOptions={{ presentation: "modal" }}>
               <Stack.Screen name="Modal" component={ModalScreen} />
