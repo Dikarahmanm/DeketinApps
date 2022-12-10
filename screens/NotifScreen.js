@@ -1,8 +1,8 @@
-import { SafeAreaView, View, Text } from 'react-native'
-import React, { useLayoutEffect } from 'react'
-import Header from '../components/Header'
-import { useNavigation } from '@react-navigation/core';
-import NotifList from '../components/NotifList';
+import { SafeAreaView, View, Text } from "react-native";
+import React, { useLayoutEffect } from "react";
+import Header from "../components/Header";
+import { useNavigation } from "@react-navigation/core";
+import NotifList from "../components/NotifList";
 
 const NotifScreen = () => {
   const navigation = useNavigation();
@@ -13,8 +13,8 @@ const NotifScreen = () => {
   }, []);
   return (
     <SafeAreaView>
-      <Header title="Notification"/>
-      <NotifList/>
+      <Header title="Notif" />
+      <NotifList />
     </SafeAreaView>
   );
 };

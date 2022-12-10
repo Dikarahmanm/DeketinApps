@@ -9,7 +9,7 @@ import {
   ScrollView,
 } from "react-native";
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { useNavigation,useRoute } from "@react-navigation/core";
+import { useNavigation, useRoute } from "@react-navigation/core";
 import { Foundation, Ionicons, FontAwesome } from "@expo/vector-icons";
 import { TextInput } from "react-native";
 import useAuth from "../hooks/useAuth";
@@ -18,6 +18,7 @@ import { db } from "../firebase";
 
 import DatePicker from "react-native-modern-datepicker";
 import Modal from "react-native-modal";
+import Navigation from "../components/Navigation";
 const Profile = () => {
   const navigation = useNavigation();
   useLayoutEffect(() => {
@@ -30,7 +31,6 @@ const Profile = () => {
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
-
   };
   const [selectedDate, setSelectedDate] = useState("");
   const { user, logout } = useAuth();
@@ -40,9 +40,8 @@ const Profile = () => {
   const [birth, setBirth] = useState(null);
   const [phone, setPhone] = useState(null);
   const [loggedInProfile, setLoggedInProfile] = useState();
-  
-  const updateUserProfile = () => {
 
+  const updateUserProfile = () => {
     var today = new Date();
     var birthDate = new Date(selectedDate);
     const age = today.getFullYear() - birthDate.getFullYear();
@@ -51,16 +50,16 @@ const Profile = () => {
       age--;
     }
     console.log(age);
-    
+
     setDoc(doc(db, "users", user.uid), {
       id: user.uid,
       displayName: user.displayName,
       photoURL: image,
       job: job,
       age: age,
-      phone:phone,
-      birth:birth,
-      email:email,
+      phone: phone,
+      birth: birth,
+      email: email,
       timestamp: serverTimestamp(),
     })
       .then(() => {
@@ -71,8 +70,8 @@ const Profile = () => {
       });
   };
 
-  useEffect(()=>{
-    getDoc(doc(db, "users", user.uid)).then((document)=>{
+  useEffect(() => {
+    getDoc(doc(db, "users", user.uid)).then((document) => {
       setLoggedInProfile(document.data());
       setImage(document.data()?.photoURL);
       setEmail(document.data()?.email);
@@ -80,7 +79,7 @@ const Profile = () => {
       setJob(document.data()?.job);
       setBirth(document.data()?.birth);
     });
-  },[]);
+  }, []);
 
   return (
     <View>
@@ -98,7 +97,9 @@ const Profile = () => {
             />
           </View>
           <View style={{ flexDirection: "row" }}>
-            <TouchableOpacity style={{ top: "-65%", marginLeft: 20 }} onPress={()=>navigation.navigate("Home")}>
+            <TouchableOpacity
+              style={{ top: "-65%", marginLeft: 20 }}
+              onPress={() => navigation.navigate("Home")}>
               <Ionicons
                 name="chevron-back-outline"
                 size={35}
@@ -121,7 +122,7 @@ const Profile = () => {
           </View>
           <View style={{ top: "-15%", marginLeft: "2%" }}>
             <Image
-              source={{uri:loggedInProfile?.photoURL}}
+              source={{ uri: loggedInProfile?.photoURL }}
               style={{
                 alignSelf: "center",
                 width: 122,
@@ -138,7 +139,7 @@ const Profile = () => {
                 alignSelf: "center",
                 top: 15,
               }}>
-                {loggedInProfile?.displayName}, {loggedInProfile?.age}
+              {loggedInProfile?.displayName}, {loggedInProfile?.age}
             </Text>
           </View>
 
@@ -186,7 +187,6 @@ const Profile = () => {
                 justifyContent: "space-between",
                 top: 0,
               }}>
-              
               <Text style={{ top: 33, marginLeft: 25, fontSize: 16 }}>
                 Phone Number
               </Text>
@@ -231,7 +231,11 @@ const Profile = () => {
                   color: "gray",
                   fontSize: 16,
                 }}
-                onPress={()=>{setModalVisible(true)}}
+                defaultValue={selectedDate}
+                onChangeText={setBirth}
+                onPress={() => {
+                  setModalVisible(true);
+                }}
               />
               <Text style={{ top: 33, marginLeft: 25, fontSize: 16 }}>
                 Email
@@ -394,24 +398,7 @@ const Profile = () => {
                 defaultValue={"Women"}
               />
             </View>
-            <View
-              style={{
-                width: 370,
-                height: 90,
-                borderColor: "gray",
-                borderWidth: 1,
-                borderRadius: 7.5,
-                marginLeft: 10,
-                marginTop: 25,
-                flexDirection: "row",
-              }}>
-              <Text style={{ marginLeft: "3%", top: 15, fontSize: 16 }}>
-                Age Range
-              </Text>
-              <Text style={{ marginLeft: "64%", top: 15, fontWeight: "bold" }}>
-                22-34
-              </Text>
-            </View>
+
             <View
               style={{
                 height: 1,
@@ -434,7 +421,7 @@ const Profile = () => {
               borderRadius: 7.5,
               margin: 10,
             }}>
-            <TouchableOpacity onPress={()=>logout()}>
+            <TouchableOpacity onPress={() => logout()}>
               <Text
                 style={{
                   textAlign: "center",
@@ -456,7 +443,7 @@ const Profile = () => {
               borderRadius: 7.5,
               margin: 10,
             }}>
-            <TouchableOpacity onPress={()=>updateUserProfile()}>
+            <TouchableOpacity onPress={() => updateUserProfile()}>
               <Text
                 style={{
                   textAlign: "center",
@@ -472,68 +459,70 @@ const Profile = () => {
         </View>
       </ScrollView>
       <Modal
-            onBackdropPress={() => setModalVisible(false)}
-            onBackButtonPress={() => setModalVisible(false)}
-            isVisible={isModalVisible}
-            swipeDirection="down"
-            onSwipeComplete={toggleModal}
-            animationIn="bounceInUp"
-            animationOut="bounceOutDown"
-            animationInTiming={900}
-            animationOutTiming={500}
-            backdropTransitionInTiming={1000}
-            backdropTransitionOutTiming={500}
-            style={styles.modal}>
-            <View style={styles.modalContent}>
-              <View style={styles.center}>
-                <View style={styles.barIcon} />
-                <DatePicker
-                  options={{
-                    backgroundColor: "white",
-                    textHeaderColor: "#2A9287",
-                    textDefaultColor: "black",
-                    selectedTextColor: "#fff",
-                    mainColor: "#2A9287",
-                    textSecondaryColor: "#40E0D0",
-                    borderColor: "rgba(122, 146, 165, 0.1)",
-                  }}
-                  onSelectedChange={(selectedDate) =>
-                    setSelectedDate(selectedDate)
-                  }
-                  selected={selectedDate}
-                  mode="calendar"
-                  minuteInterval={30}
-                  style={{ borderRadius: 30 }}
-                />
-              </View>
-              <View>
-                <TouchableOpacity
-                  onPress={() => {setSelectedDate(selectedDate); setModalVisible(false);}}
-                  style={{
-                    backgroundColor: "#2A9287",
-                    width: 295,
-                    top: 0,
-                    borderRadius: 12,
-                    alignContent: "center",
-                    alignSelf: "center",
-                    margin: 10,
-                    height: 58,
-                  }}>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontWeight: "bold",
-                      marginLeft: 0,
-                      top: 18,
-                      color: "white",
-                      alignSelf: "center",
-                    }}>
-                    Save
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </Modal>
+        onBackdropPress={() => setModalVisible(false)}
+        onBackButtonPress={() => setModalVisible(false)}
+        isVisible={isModalVisible}
+        swipeDirection="down"
+        onSwipeComplete={toggleModal}
+        animationIn="bounceInUp"
+        animationOut="bounceOutDown"
+        animationInTiming={900}
+        animationOutTiming={500}
+        backdropTransitionInTiming={1000}
+        backdropTransitionOutTiming={500}
+        style={styles.modal}>
+        <View style={styles.modalContent}>
+          <View style={styles.center}>
+            <View style={styles.barIcon} />
+            <DatePicker
+              options={{
+                backgroundColor: "white",
+                textHeaderColor: "#2A9287",
+                textDefaultColor: "black",
+                selectedTextColor: "#fff",
+                mainColor: "#2A9287",
+                textSecondaryColor: "#40E0D0",
+                borderColor: "rgba(122, 146, 165, 0.1)",
+              }}
+              onSelectedChange={(selectedDate) => setSelectedDate(selectedDate)}
+              selected={selectedDate}
+              mode="calendar"
+              minuteInterval={30}
+              style={{ borderRadius: 30 }}
+            />
+          </View>
+          <View>
+            <TouchableOpacity
+              onPress={() => {
+                setSelectedDate(selectedDate);
+                setModalVisible(false);
+              }}
+              style={{
+                backgroundColor: "#2A9287",
+                width: 295,
+                top: 0,
+                borderRadius: 12,
+                alignContent: "center",
+                alignSelf: "center",
+                margin: 10,
+                height: 58,
+              }}>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: "bold",
+                  marginLeft: 0,
+                  top: 18,
+                  color: "white",
+                  alignSelf: "center",
+                }}>
+                Save
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+      <Navigation />
     </View>
   );
 };

@@ -24,16 +24,15 @@ const ProfileDetails = () => {
   const [photo, setPhoto] = useState(null);
   const [phone, setPhone] = useState(null);
   const [job, setJob] = useState(null);
-  const {user} = useAuth();
+  const { user } = useAuth();
 
   const saveUserProfile = () => {
-    
     var today = new Date();
     var birthDate = new Date(selectedDate);
     var age = today.getFullYear() - birthDate.getFullYear();
     var m = today.getMonth() - birthDate.getMonth();
     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
+      age--;
     }
 
     setDoc(doc(db, "users", user.uid), {
@@ -42,9 +41,9 @@ const ProfileDetails = () => {
       photoURL: photo,
       job: job,
       age: age,
-      phone:phone,
-      birth:selectedDate,
-      email:email,
+      phone: phone,
+      birth: selectedDate,
+      email: email,
       timestamp: serverTimestamp(),
     })
       .then(() => {
@@ -65,15 +64,12 @@ const ProfileDetails = () => {
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
-
   };
-
-
 
   return (
     <View>
       <SafeAreaView>
-        <StatusBar hidden={true} />
+        <StatusBar hidden={false} />
         <View>
           <View
             style={{
@@ -84,7 +80,7 @@ const ProfileDetails = () => {
               style={{
                 fontSize: 34,
                 fontWeight: "bold",
-                top: 105,
+                top: 50,
                 padding: 10,
               }}>
               Profile details
@@ -93,14 +89,14 @@ const ProfileDetails = () => {
             <Image
               className="absolute"
               style={{
-                backgroundColor: "gray",
-                top: 200,
+                backgroundColor: "white",
+                top: 80,
                 borderRadius: 40,
                 alignItems: "center",
                 marginLeft: 48,
               }}
               source={{
-                uri: "https://links.papareact.com/mg9",
+                uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Avatar_icon_green.svg/1024px-Avatar_icon_green.svg.png",
                 width: 150,
                 height: 156,
               }}
@@ -111,7 +107,7 @@ const ProfileDetails = () => {
                 width: 50,
                 height: 50,
                 backgroundColor: "#2A9287",
-                top: 150,
+                top: 30,
                 marginLeft: 146,
                 borderRadius: 30,
                 borderColor: "white",
@@ -127,92 +123,113 @@ const ProfileDetails = () => {
           </View>
           <View
             style={{
-              top: 180,
+              top: 50,
             }}>
-            <TextInput
-              style={{
-                height: 48,
-                borderWidth: 1,
-                marginLeft: 80,
-                width: 250,
-                borderColor: "gray",
-                borderRadius: 12,
-                alignItems: "center",
-                alignContent: "center",
-                justifyContent: "center",
-              }}
-              placeholder="First Name"
-              placeholderTextColor={"black"}
-              defaultValue={"Ucup"}
-            />
-
-            <TextInput
-              style={{
-                height: 48,
-                borderWidth: 1,
-                marginLeft: 80,
-                marginTop: 20,
-                width: 250,
-                borderColor: "gray",
-                borderRadius: 12,
-                alignItems: "center",
-                alignContent: "center",
-                justifyContent: "center",
-              }}
-              placeholder="Last Name"
-              placeholderTextColor={"black"}
-              defaultValue={"Samsudin"}
-            />
-            <TextInput
-              style={{
-                height: 48,
-                borderWidth: 1,
-                marginLeft: 80,
-                marginTop: 20,
-                width: 250,
-                borderColor: "gray",
-                borderRadius: 12,
-                alignItems: "center",
-                alignContent: "center",
-                justifyContent: "center",
-              }}
-              placeholder="Jurusan"
-              placeholderTextColor={"black"}
-              defaultValue={"S1 Informatika"}
-              onChangeText={setJob}
-            />
-          </View>
-
-          <View style={{}}>
             <Text
               style={{
-                marginTop: 12,
-                marginLeft: 110,
-                top: -33,
-                color: "gray",
-              }}>
-              First Name
-            </Text>
-
-            <Text
-              style={{
-                marginTop: 15,
                 marginLeft: 110,
                 top: 0,
                 color: "gray",
               }}>
-              Last Name
+              Name
             </Text>
+            <TextInput
+              style={{
+                height: 48,
+                borderWidth: 1,
+                marginLeft: 80,
+                width: 250,
+                borderColor: "gray",
+                borderRadius: 12,
+                alignItems: "center",
+                alignContent: "center",
+                justifyContent: "center",
+                paddingHorizontal: 15,
+              }}
+              placeholder="Masukan Nama"
+              placeholderTextColor={"black"}
+            />
+
             <Text
               style={{
-                marginTop: 15,
                 marginLeft: 110,
-                top: 34,
+                top: 10,
                 color: "gray",
               }}>
-              Jurusan
+              Email
             </Text>
+            <TextInput
+              style={{
+                height: 48,
+                borderWidth: 1,
+                marginLeft: 80,
+                marginTop: 10,
+                width: 250,
+                borderColor: "gray",
+                borderRadius: 12,
+                alignItems: "center",
+                alignContent: "center",
+                justifyContent: "center",
+                paddingHorizontal: 15,
+              }}
+              placeholder="Masukan Email"
+              placeholderTextColor={"black"}
+              onChangeText={setEmail}
+            />
+            <Text
+              style={{
+                marginLeft: 110,
+                top: 10,
+                color: "gray",
+              }}>
+              Faculty
+            </Text>
+            <TextInput
+              style={{
+                height: 48,
+                borderWidth: 1,
+                marginLeft: 80,
+                marginTop: 10,
+                width: 250,
+                borderColor: "gray",
+                borderRadius: 12,
+                alignItems: "center",
+                alignContent: "center",
+                justifyContent: "center",
+                paddingHorizontal: 15,
+              }}
+              placeholder="Masukan Jurusan"
+              placeholderTextColor={"black"}
+              onChangeText={setJob}
+            />
+            <Text
+              style={{
+                marginLeft: 110,
+                top: 10,
+                color: "gray",
+              }}>
+              PhotoProfile
+            </Text>
+            <TextInput
+              style={{
+                height: 48,
+                borderWidth: 1,
+                marginLeft: 80,
+                marginTop: 10,
+                width: 250,
+                borderColor: "gray",
+                borderRadius: 12,
+                alignItems: "center",
+                alignContent: "center",
+                justifyContent: "center",
+                paddingHorizontal: 15,
+              }}
+              placeholder="Masukan URL Photo"
+              placeholderTextColor={"black"}
+              onChangeText={setPhoto}
+            />
           </View>
+
           <TouchableOpacity
             onPress={toggleModal}
             style={{
@@ -231,9 +248,8 @@ const ProfileDetails = () => {
                 fontWeight: "500",
                 textAlign: "center",
                 paddingTop: 10,
-              }}>{
-                selectedDate ? selectedDate : "Choose Birthday Date"
-              }
+              }}>
+              {selectedDate ? selectedDate : "Choose Birthday Date"}
             </Text>
             <MaterialIcons
               name="date-range"
@@ -279,7 +295,10 @@ const ProfileDetails = () => {
               </View>
               <View>
                 <TouchableOpacity
-                  onPress={() => {setSelectedDate(selectedDate); setModalVisible(false);}}
+                  onPress={() => {
+                    setSelectedDate(selectedDate);
+                    setModalVisible(false);
+                  }}
                   style={{
                     backgroundColor: "#2A9287",
                     width: 295,
@@ -306,9 +325,27 @@ const ProfileDetails = () => {
             </View>
           </Modal>
         </View>
-        <TouchableOpacity style={{position:"absolute", top:10, right:10, width:100, height:50}}
-        onPress={()=>saveUserProfile()}>
-          <Text style={{color:"#2fd471", fontWeight:"bold", textAlign:"center", textAlignVertical:"center", width:"100%", height:"100%", fontSize:20}}>Save</Text>
+        <TouchableOpacity
+          style={{
+            position: "absolute",
+            top: 10,
+            right: 10,
+            width: 100,
+            height: 50,
+          }}
+          onPress={() => saveUserProfile()}>
+          <Text
+            style={{
+              color: "#2fd471",
+              fontWeight: "bold",
+              textAlign: "center",
+              textAlignVertical: "center",
+              width: "100%",
+              height: "100%",
+              fontSize: 20,
+            }}>
+            Save
+          </Text>
         </TouchableOpacity>
       </SafeAreaView>
     </View>

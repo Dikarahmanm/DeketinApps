@@ -29,10 +29,11 @@ const LoginScreen = () => {
 
   return (
     <TailwindProvider>
-      <View className="flex-1 justify-center">
+      <View className="flex-1 justify-center" style={{ flex: 1 }}>
         <ImageBackground
           resizeMode="cover"
           className="flex-1"
+          style={{ flex: 1 }}
           source={{
             uri: "https://i.ibb.co/M1zwzPy/Frame-2-3.png",
           }}>
@@ -65,7 +66,6 @@ const LoginScreen = () => {
               size={24}
               color="black"
               style={styles.googleIcon}>
-                
               {" "}
               <Text style={styles.Text} className="justify-center items-center">
                 Login With Phone Number
@@ -83,12 +83,12 @@ export default LoginScreen;
 const styles = StyleSheet.create({
   box: {
     position: "absolute",
-    width: '70%',
-    marginLeft:'15%',
-    marginRight:'15%',
+    width: "70%",
+    marginLeft: "15%",
+    marginRight: "15%",
     height: 45,
-    top: '53%',
-    alignItems: 'center',
+    top: "53%",
+    alignItems: "center",
     backgroundColor: "white",
     borderRadius: 25,
     textAlign: "center",
@@ -96,23 +96,23 @@ const styles = StyleSheet.create({
   },
   googleIcon: {
     position: "absolute",
-    top:'10%',
+    top: "10%",
   },
   Text: {
     fontSize: 16,
     textAlignVertical: "center",
     position: "relative",
-    top:'15%',
+    top: "15%",
     color: "#2BBDAF",
   },
   box2: {
     position: "absolute",
-    width: '70%',
-    marginLeft:'15%',
-    marginRight:'15%',
+    width: "70%",
+    marginLeft: "15%",
+    marginRight: "15%",
     height: 45,
-    alignItems: 'center',
-    top: '60%',
+    alignItems: "center",
+    top: "60%",
     backgroundColor: "white",
     borderRadius: 25,
     textAlign: "center",
