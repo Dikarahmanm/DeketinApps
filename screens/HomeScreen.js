@@ -159,16 +159,19 @@ const HomeScreen = () => {
           style={{
             flexDirection: "row",
             justifyContent: "center",
-            marginTop: 40,
+            marginTop: 20,
           }}>
           <View>
             <TouchableOpacity
               onPress={() => navigation.navigate("Modal")}
               style={{ left: 22 }}>
-              <Image source={require("../assets/logo.png")} />
+              <Image
+                source={require("../assets/logo.png")}
+                style={{ width: 50, height: 50 }}
+              />
             </TouchableOpacity>
           </View>
-          <View style={{ left: "184%", top: "6%" }}>
+          <View style={{ left: "235%", top: "6%" }}>
             <TouchableOpacity
               style={{ width: 50, height: 50 }}
               onPress={() => navigation.navigate("Notif")}>

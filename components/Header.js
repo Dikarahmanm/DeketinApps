@@ -32,6 +32,7 @@ const Header = ({ title, callEnabled, photoURL, CurrentPageName }) => {
               bottom: 10,
               resizeMode: "cover",
               borderRadius: 100,
+              left: "20%",
             }}
           />
         )}
@@ -39,6 +40,7 @@ const Header = ({ title, callEnabled, photoURL, CurrentPageName }) => {
           <Text
             style={{
               fontSize: 24,
+              left: 50,
             }}>
             {title}
           </Text>
