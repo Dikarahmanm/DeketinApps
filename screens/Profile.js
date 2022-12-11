@@ -35,6 +35,7 @@ const Profile = () => {
   const [selectedDate, setSelectedDate] = useState("");
   const { user, logout } = useAuth();
   const [image, setImage] = useState(null);
+  const [gender, setGender] = useState(null);
   const [job, setJob] = useState(null);
   const [email, setEmail] = useState(null);
   const [birth, setBirth] = useState(null);
@@ -59,6 +60,7 @@ const Profile = () => {
       age: age,
       phone: phone,
       birth: birth,
+      gender:gender,
       email: email,
       timestamp: serverTimestamp(),
     })
@@ -78,6 +80,8 @@ const Profile = () => {
       setPhone(document.data()?.phone);
       setJob(document.data()?.job);
       setBirth(document.data()?.birth);
+      setGender(document.data()?.gender);
+      setSelectedDate(document.data()?.birth);
     });
   }, []);
 
@@ -518,7 +522,7 @@ const Profile = () => {
                 }}>
                 Save
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> 
           </View>
         </View>
       </Modal>
