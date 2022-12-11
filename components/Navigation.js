@@ -10,7 +10,7 @@ const Navigation = ({ CurrentPageName }) => {
     <View
       style={{
         position: "absolute",
-        bottom: CurrentPageName === "Likes" ? -699 : 0,
+        bottom: 0,
         height: 65,
         width: "100%",
         backgroundColor: "white",

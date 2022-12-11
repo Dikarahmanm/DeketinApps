@@ -34,30 +34,27 @@ const LoginScreen = () => {
           resizeMode="cover"
           className="flex-1"
           style={{ flex: 1 }}
-          source={{
-            uri: "https://i.ibb.co/M1zwzPy/Frame-2-3.png",
-          }}>
-          <TouchableOpacity
-            style={styles.box}
-            onPress={() => {
-              promptAsync();
-              setLoading(true);
-            }}>
-            <AntDesign
-              name="google"
-              size={24}
-              color="black"
-              style={styles.googleIcon}>
-              {" "}
+          source={require("../assets/LaunchScreen.png")}>
+          <View style={styles.box}>
+            <TouchableOpacity
+              onPress={() => {
+                promptAsync();
+                setLoading(true);
+              }}>
+              <Image
+                source={require("../assets/google.png")}
+                style={styles.googleIcon}
+              />
               <Text style={styles.Text} className="justify-center items-center">
                 Login With Google
               </Text>
-            </AntDesign>
-            {/* <Image
+            </TouchableOpacity>
+          </View>
+
+          {/* <Image
               source={{
                 uri: "https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-webinar-optimizing-for-success-google-business-webinar-13.png",
               }} */}
-          </TouchableOpacity>
         </ImageBackground>
       </View>
     </TailwindProvider>
@@ -79,6 +76,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     textAlign: "center",
     textAlignVertical: "center",
+    flexDirection: "row",
   },
   googleIcon: {
     position: "absolute",
@@ -88,7 +86,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlignVertical: "center",
     position: "relative",
-    top: "15%",
+    top: "-33%",
     color: "#2BBDAF",
+    left: 90,
+  },
+  googleIcon: {
+    height: 30,
+    width: 30,
+    resizeMode: "stretch",
+    top: 10,
+    left: 20,
   },
 });

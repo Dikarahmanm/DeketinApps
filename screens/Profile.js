@@ -102,7 +102,7 @@ const Profile = () => {
           </View>
           <View style={{ flexDirection: "row" }}>
             <TouchableOpacity
-              style={{ top: "-78%", marginLeft: 20 }}
+              style={{ top: "-73%", marginLeft: 20 }}
               onPress={() => navigation.navigate("Home")}>
               <Ionicons
                 name="chevron-back-outline"
@@ -114,7 +114,7 @@ const Profile = () => {
                 fontSize: 24,
                 fontWeight: "700",
                 color: "white",
-                top: "-78%",
+                top: "-73%",
                 alignItems: "center",
                 alignContent: "center",
                 alignSelf: "center",
@@ -124,13 +124,13 @@ const Profile = () => {
               Profile
             </Text>
           </View>
-          <View style={{ top: "-20%", marginLeft: "2%" }}>
+          <View style={{ top: "-17%", marginLeft: "2%" }}>
             <Image
               source={{ uri: loggedInProfile?.photoURL }}
               style={{
                 alignSelf: "center",
-                width: 200,
-                height: 200,
+                width: 150,
+                height: 150,
                 resizeMode: "cover",
                 borderRadius: 100,
               }}
@@ -145,7 +145,7 @@ const Profile = () => {
               }}>
               {loggedInProfile?.displayName}, {loggedInProfile?.age}
             </Text>
-            <Text style={{ top: 50, fontWeight: "bold", fontSize: 16 }}>
+            <Text style={{ top: 50, fontWeight: "bold", fontSize: 18 }}>
               {" "}
               Change Your Photo{" "}
             </Text>
@@ -181,7 +181,7 @@ const Profile = () => {
               width: 40,
               height: 40,
               backgroundColor: "white",
-              top: "-32%",
+              top: "-28%",
               borderRadius: 50,
               marginLeft: "55%",
             }}>
@@ -196,7 +196,7 @@ const Profile = () => {
           </View>
 
           {/* End Of Header */}
-          <View style={{ top: "-18.2%" }}>
+          <View style={{ top: "-15.7%" }}>
             <View style={{ flexDirection: "row" }}>
               <Text
                 style={{ fontWeight: "bold", fontSize: 18, marginLeft: 10 }}>
