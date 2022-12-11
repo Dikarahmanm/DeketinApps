@@ -38,7 +38,7 @@ const MessageScreen = () => {
       onSnapshot(
         query(
           collection(db, "matches", matchDetails.id, "messages"),
-          orderBy("timestamp", "desc")
+          orderBy("timestamp", "asc")
         ),
         (snapshot) =>
           setMessages(
