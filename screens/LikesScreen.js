@@ -53,10 +53,10 @@ const LikesScreen = () => {
       <View
         style={{
           flexDirection: "row",
-          marginBottom: 10,
+          marginBottom: 20,
         }}>
         <TouchableOpacity
-          style={{ top: "0%", marginLeft: 20 }}
+          style={{ top: "5%", marginLeft: 20 }}
           onPress={() => navigation.navigate("Home")}>
           <Ionicons
             name="chevron-back-outline"
@@ -68,7 +68,7 @@ const LikesScreen = () => {
             fontSize: 20,
             fontWeight: "700",
             color: "black",
-            top: "0%",
+            top: "5%",
             alignItems: "center",
             alignContent: "center",
             alignSelf: "center",
@@ -171,7 +171,7 @@ const LikesScreen = () => {
           No likes yet!
         </Text>
       )}
-      <View style={{}}>
+      <View style={{ top: 29 }}>
         <Navigation CurrentPageName={"Likes"} />
       </View>
     </SafeAreaView>

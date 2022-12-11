@@ -164,13 +164,13 @@ const HomeScreen = () => {
           <View>
             <TouchableOpacity
               onPress={() => navigation.navigate("Modal")}
-              style={{}}>
-              <Image source={require("../assets/Group9.png")} />
+              style={{ left: 22 }}>
+              <Image source={require("../assets/logo.png")} />
             </TouchableOpacity>
           </View>
-          <View style={{ left: "150%", top: "1%" }}>
+          <View style={{ left: "184%", top: "6%" }}>
             <TouchableOpacity
-              style={{ width: 50, height: 50, alignContent: "center" }}
+              style={{ width: 50, height: 50 }}
               onPress={() => navigation.navigate("Notif")}>
               <MaterialCommunityIcons name="bell" size={24} color="#2A9287" />
             </TouchableOpacity>
@@ -200,11 +200,8 @@ const HomeScreen = () => {
                   <View
                     key={card.id}
                     style={{
-                      backgroundColor: "#FFFFFF",
                       height: "75%",
                       borderRadius: 25,
-                      borderWidth: 1,
-                      borderColor: "#e3e3e3",
                     }}>
                     <Image
                       style={{
@@ -221,29 +218,19 @@ const HomeScreen = () => {
                         justifyContent: "space-between",
                         alignItems: "center",
                       }}>
-                      <View style={{ marginLeft: "5%", marginTop: "2%" }}>
+                      <View style={{ marginLeft: "5%", top: "-14%" }}>
                         <Text
                           style={{
                             fontWeight: "bold",
                             fontSize: 20,
-                            color: "#1c1c1c",
+                            color: "white",
                           }}>
-                          {card.displayName}
+                          {card.displayName}, {card.age}
                         </Text>
-                        <Text style={{ fontSize: 16, color: "#878787" }}>
+                        <Text style={{ fontSize: 16, color: "white" }}>
                           {card.job}
                         </Text>
                       </View>
-                      <Text
-                        style={{
-                          marginTop: "5%",
-                          marginRight: "8%",
-                          fontWeight: "bold",
-                          fontSize: 25,
-                          color: "#878787",
-                        }}>
-                        {card.age}
-                      </Text>
                     </View>
                   </View>
                 ) : (
@@ -334,7 +321,7 @@ const HomeScreen = () => {
           </View>
         </View>
       </View>
-      <Navigation CurrentPageName={"Home"}/>
+      <Navigation CurrentPageName={"Home"} />
     </SafeAreaView>
   );
 };

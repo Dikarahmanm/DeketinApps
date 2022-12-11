@@ -34,9 +34,7 @@ const LoginScreen = () => {
           resizeMode="cover"
           className="flex-1"
           style={{ flex: 1 }}
-          source={{
-            uri: "https://i.ibb.co/M1zwzPy/Frame-2-3.png",
-          }}>
+          source={require("../assets/LaunchScreen.png")}>
           <TouchableOpacity
             style={styles.box}
             onPress={() => {
