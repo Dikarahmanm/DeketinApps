@@ -27,20 +27,22 @@ const ProfileDetails = () => {
   const { user } = useAuth();
 
   const saveUserProfile = () => {
-    var today = new Date();
+    if(email && phone && photo && selectedDate && job){
+      var today = new Date();
     var birthDate = new Date(selectedDate);
-    var age = today.getFullYear() - birthDate.getFullYear();
+    const newAge = today.getFullYear() - birthDate.getFullYear();
     var m = today.getMonth() - birthDate.getMonth();
     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
+      newAge--;
     }
+    console.log(newAge);
 
     setDoc(doc(db, "users", user.uid), {
       id: user.uid,
       displayName: user.displayName,
       photoURL: photo,
       job: job,
-      age: age,
+      age: newAge,
       phone: phone,
       birth: selectedDate,
       email: email,
@@ -52,6 +54,8 @@ const ProfileDetails = () => {
       .catch((error) => {
         alert(error.message);
       });
+    }
+    
   };
 
   useLayoutEffect(() => {
@@ -96,7 +100,7 @@ const ProfileDetails = () => {
                 marginLeft: 48,
               }}
               source={{
-                uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Avatar_icon_green.svg/1024px-Avatar_icon_green.svg.png",
+                uri: photo ? photo :"https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Avatar_icon_green.svg/1024px-Avatar_icon_green.svg.png",
                 width: 150,
                 height: 156,
               }}
@@ -131,7 +135,7 @@ const ProfileDetails = () => {
                 top: 0,
                 color: "gray",
               }}>
-              Name
+              Phone
             </Text>
             <TextInput
               style={{
@@ -146,8 +150,9 @@ const ProfileDetails = () => {
                 justifyContent: "center",
                 paddingHorizontal: 15,
               }}
-              placeholder="Masukan Nama"
+              placeholder="Masukan Nomor"
               placeholderTextColor={"black"}
+              onChangeText={setPhone}
             />
 
             <Text
@@ -284,8 +289,8 @@ const ProfileDetails = () => {
                     textSecondaryColor: "#40E0D0",
                     borderColor: "rgba(122, 146, 165, 0.1)",
                   }}
-                  onSelectedChange={(selectedDate) =>
-                    setSelectedDate(selectedDate)
+                  onSelectedChange={(date) =>
+                    setSelectedDate(date)
                   }
                   selected={selectedDate}
                   mode="calendar"
