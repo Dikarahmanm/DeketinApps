@@ -60,7 +60,7 @@ const Profile = () => {
       age: age,
       phone: phone,
       birth: birth,
-      gender:gender,
+      gender: gender,
       email: email,
       timestamp: serverTimestamp(),
     })
@@ -102,7 +102,7 @@ const Profile = () => {
           </View>
           <View style={{ flexDirection: "row" }}>
             <TouchableOpacity
-              style={{ top: "-65%", marginLeft: 20 }}
+              style={{ top: "-78%", marginLeft: 20 }}
               onPress={() => navigation.navigate("Home")}>
               <Ionicons
                 name="chevron-back-outline"
@@ -111,10 +111,10 @@ const Profile = () => {
             </TouchableOpacity>
             <Text
               style={{
-                fontSize: 20,
+                fontSize: 24,
                 fontWeight: "700",
                 color: "white",
-                top: "-65%",
+                top: "-78%",
                 alignItems: "center",
                 alignContent: "center",
                 alignSelf: "center",
@@ -124,13 +124,13 @@ const Profile = () => {
               Profile
             </Text>
           </View>
-          <View style={{ top: "-15%", marginLeft: "2%" }}>
+          <View style={{ top: "-20%", marginLeft: "2%" }}>
             <Image
               source={{ uri: loggedInProfile?.photoURL }}
               style={{
                 alignSelf: "center",
-                width: 122,
-                height: 122,
+                width: 200,
+                height: 200,
                 resizeMode: "cover",
                 borderRadius: 100,
               }}
@@ -138,13 +138,42 @@ const Profile = () => {
             <Text
               style={{
                 color: "white",
-                fontSize: 16,
+                fontSize: 23,
                 fontWeight: "600",
                 alignSelf: "center",
                 top: 15,
               }}>
               {loggedInProfile?.displayName}, {loggedInProfile?.age}
             </Text>
+            <Text style={{ top: 50, fontWeight: "bold", fontSize: 16 }}>
+              {" "}
+              Change Your Photo{" "}
+            </Text>
+            <Text style={{ top: 80, fontSize: 16, left: 20 }}>
+              {" "}
+              Enter your URL Photo{" "}
+            </Text>
+            <View style={{ top: 50 }}>
+              <TextInput
+                style={{
+                  height: 48,
+                  borderWidth: 1,
+                  marginLeft: 5,
+                  marginRight: 5,
+                  width: 370,
+                  borderColor: "gray",
+                  borderRadius: 7.5,
+                  alignContent: "center",
+                  textAlign: "right",
+                  justifyContent: "center",
+                  paddingRight: 10,
+                  color: "gray",
+                  fontSize: 16,
+                }}
+                keyboardType="url"
+                onChangeText={setImage}
+              />
+            </View>
           </View>
 
           <View
@@ -152,7 +181,7 @@ const Profile = () => {
               width: 40,
               height: 40,
               backgroundColor: "white",
-              top: "-25%",
+              top: "-32%",
               borderRadius: 50,
               marginLeft: "55%",
             }}>
@@ -167,7 +196,7 @@ const Profile = () => {
           </View>
 
           {/* End Of Header */}
-          <View style={{ top: "-14.2%" }}>
+          <View style={{ top: "-18.2%" }}>
             <View style={{ flexDirection: "row" }}>
               <Text
                 style={{ fontWeight: "bold", fontSize: 18, marginLeft: 10 }}>
@@ -235,12 +264,14 @@ const Profile = () => {
                   color: "gray",
                   fontSize: 16,
                 }}
-                defaultValue={selectedDate}
                 onChangeText={setBirth}
                 onPress={() => {
                   setModalVisible(true);
-                }}
-              />
+                }}>
+                <Text style={{ textAlign: "right", color: "gray" }}>
+                  {birth}
+                </Text>
+              </TouchableOpacity>
               <Text style={{ top: 33, marginLeft: 25, fontSize: 16 }}>
                 Email
               </Text>
@@ -522,11 +553,11 @@ const Profile = () => {
                 }}>
                 Save
               </Text>
-            </TouchableOpacity> 
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
-      <Navigation />
+      <Navigation CurrentPageName={"Profile"} />
     </View>
   );
 };

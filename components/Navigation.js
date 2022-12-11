@@ -4,20 +4,20 @@ import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import { Ionicons, FontAwesome5 } from "@expo/vector-icons";
 
-const Navigation = ({CurrentPageName}) => {
+const Navigation = ({ CurrentPageName }) => {
   const navigation = useNavigation();
   return (
     <View
       style={{
         position: "absolute",
-        bottom: 0,
+        bottom: CurrentPageName === "Likes" ? -699 : 0,
         height: 65,
         width: "100%",
         backgroundColor: "white",
         flex: 1,
         flexDirection: "row",
         justifyContent: "flex-start",
-        alignItems:"stretch",
+        alignItems: "stretch",
         alignContent: "stretch",
         borderTopRightRadius: 30,
         borderTopLeftRadius: 30,
@@ -25,32 +25,32 @@ const Navigation = ({CurrentPageName}) => {
       }}>
       <TouchableOpacity
         style={{
-          borderTopLeftRadius:30,
+          borderTopLeftRadius: 30,
           backgroundColor: CurrentPageName === "Home" ? "#2A9287" : "#FFFFFF",
           justifyContent: "center",
-          alignItems:"center",
+          alignItems: "center",
           paddingHorizontal: 10,
-          width:"25%",
+          width: "25%",
         }}
         onPress={() => navigation.navigate("Home")}>
         <Ionicons
           name="ios-home-sharp"
           size={30}
-          color= {CurrentPageName === "Home" ? "#FFFFFF" : "#2A9287"}
+          color={CurrentPageName === "Home" ? "#FFFFFF" : "#2A9287"}
         />
       </TouchableOpacity>
       <TouchableOpacity
         style={{
           backgroundColor: CurrentPageName === "Likes" ? "#2A9287" : "#FFFFFF",
           justifyContent: "center",
-          alignItems:"center",
-          width:"25%",
+          alignItems: "center",
+          width: "25%",
         }}
         onPress={() => navigation.navigate("Likes")}>
         <Ionicons
           name="heart"
           size={30}
-          color= {CurrentPageName === "Likes" ? "#FFFFFF" : "#2A9287"}
+          color={CurrentPageName === "Likes" ? "#FFFFFF" : "#2A9287"}
         />
       </TouchableOpacity>
       <TouchableOpacity
@@ -58,8 +58,8 @@ const Navigation = ({CurrentPageName}) => {
           borderRadius: 0,
           backgroundColor: CurrentPageName === "Chat" ? "#2A9287" : "#FFFFFF",
           justifyContent: "center",
-          alignItems:"center",
-          width:"25%",
+          alignItems: "center",
+          width: "25%",
         }}
         onPress={() => navigation.navigate("Chat")}>
         <Ionicons
@@ -71,10 +71,11 @@ const Navigation = ({CurrentPageName}) => {
       <TouchableOpacity
         style={{
           borderTopRightRadius: 30,
-          backgroundColor: CurrentPageName === "Profile" ? "#2A9287" : "#FFFFFF",
+          backgroundColor:
+            CurrentPageName === "Profile" ? "#2A9287" : "#FFFFFF",
           justifyContent: "center",
-          alignItems:"center",
-          width:"25%",
+          alignItems: "center",
+          width: "25%",
         }}
         onPress={() => navigation.navigate("Profile")}>
         <FontAwesome5

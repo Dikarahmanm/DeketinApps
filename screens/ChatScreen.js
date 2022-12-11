@@ -1,8 +1,10 @@
-import { SafeAreaView, View, Text } from 'react-native'
-import React, { useLayoutEffect } from 'react'
-import Header from '../components/Header'
-import ChatList from '../components/ChatList'
-import { useNavigation } from '@react-navigation/core';
+import { SafeAreaView, View, Text, TouchableOpacity } from "react-native";
+import React, { useLayoutEffect } from "react";
+import Header from "../components/Header";
+import ChatList from "../components/ChatList";
+import { useNavigation } from "@react-navigation/core";
+import { Ionicons } from "@expo/vector-icons";
+import Navigation from "../components/Navigation";
 
 const ChatScreen = () => {
   const navigation = useNavigation();
@@ -13,8 +15,41 @@ const ChatScreen = () => {
   }, []);
   return (
     <SafeAreaView>
-      <Header title="Chat" callEnabled={true}/>
-      <ChatList/>
+      <View>
+        <View
+          style={{
+            flexDirection: "row",
+            marginBottom: 10,
+          }}>
+          <TouchableOpacity
+            style={{ top: "0%", marginLeft: 20 }}
+            onPress={() => navigation.navigate("Home")}>
+            <Ionicons
+              name="chevron-back-outline"
+              size={35}
+              color="black"></Ionicons>
+          </TouchableOpacity>
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: "700",
+              color: "black",
+              top: "0%",
+              alignItems: "center",
+              alignContent: "center",
+              alignSelf: "center",
+              marginLeft: "28%",
+            }}>
+            {" "}
+            Chat
+          </Text>
+        </View>
+      </View>
+      {/* <Header title="Chat" /> */}
+      <ChatList />
+      <View style={{ top: 650 }}>
+        <Navigation CurrentPageName={"Chat"} />
+      </View>
     </SafeAreaView>
   );
 };

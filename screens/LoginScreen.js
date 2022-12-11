@@ -58,20 +58,6 @@ const LoginScreen = () => {
                 uri: "https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-webinar-optimizing-for-success-google-business-webinar-13.png",
               }} */}
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.box2}
-            onPress={() => navigation.navigate("LoginPhone")}>
-            <Foundation
-              name="telephone"
-              size={24}
-              color="black"
-              style={styles.googleIcon}>
-              {" "}
-              <Text style={styles.Text} className="justify-center items-center">
-                Login With Phone Number
-              </Text>
-            </Foundation>
-          </TouchableOpacity>
         </ImageBackground>
       </View>
     </TailwindProvider>
@@ -104,18 +90,5 @@ const styles = StyleSheet.create({
     position: "relative",
     top: "15%",
     color: "#2BBDAF",
-  },
-  box2: {
-    position: "absolute",
-    width: "70%",
-    marginLeft: "15%",
-    marginRight: "15%",
-    height: 45,
-    alignItems: "center",
-    top: "60%",
-    backgroundColor: "white",
-    borderRadius: 25,
-    textAlign: "center",
-    textAlignVertical: "center",
   },
 });
