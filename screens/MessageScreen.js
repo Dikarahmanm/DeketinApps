@@ -82,7 +82,7 @@ const MessageScreen = () => {
             data={messages}
             style={{ paddingHorizontal: 10 }}
             keyExtractor={(item) => item.id}
-            inverted={true}
+            inverted={false}
             renderItem={({ item: message }) =>
               message.userId === user.uid ? (
                 <SenderMessage key={message.id} msg={message} />
