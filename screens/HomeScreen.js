@@ -334,7 +334,7 @@ const HomeScreen = () => {
           </View>
         </View>
       </View>
-      <Navigation />
+      <Navigation CurrentPageName={"Home"}/>
     </SafeAreaView>
   );
 };
