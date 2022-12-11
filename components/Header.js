@@ -6,7 +6,6 @@ import { useNavigation } from "@react-navigation/native";
 const Header = ({ title, callEnabled, photoURL }) => {
   const navigation = useNavigation();
   const [loggedInProfile, setLoggedInProfile] = useState();
-  console.log(photoURL);
   return (
     <View classname="p-2 flex-row items-center justify-between">
       <View
