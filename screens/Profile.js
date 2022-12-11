@@ -83,6 +83,7 @@ const Profile = () => {
       setBirth(document.data()?.birth);
       setGender(document.data()?.gender);
       setSelectedDate(document.data()?.birth);
+      
     });
   }, []);
 
@@ -520,7 +521,7 @@ const Profile = () => {
                 textSecondaryColor: "#40E0D0",
                 borderColor: "rgba(122, 146, 165, 0.1)",
               }}
-              onSelectedChange={(selectedDate) => setSelectedDate(selectedDate)}
+              onSelectedChange={(selectedDate) =>{ setSelectedDate(selectedDate); setBirth(selectedDate);}}
               selected={selectedDate}
               mode="calendar"
               minuteInterval={30}
@@ -531,6 +532,7 @@ const Profile = () => {
             <TouchableOpacity
               onPress={() => {
                 setSelectedDate(selectedDate);
+                setBirth(selectedDate);
                 setModalVisible(false);
               }}
               style={{
