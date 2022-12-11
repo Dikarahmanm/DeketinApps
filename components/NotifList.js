@@ -30,6 +30,7 @@ const NotifList = () => {
         data={notifs}
         keyExtractor={(item)=>item.id}
         renderItem={({item})=> <NotifRow notifDetails={item}/>}
+        inverted={true}
       />
     ):(
       <View>
