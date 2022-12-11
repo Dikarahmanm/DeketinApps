@@ -43,6 +43,7 @@ const Profile = () => {
   const [loggedInProfile, setLoggedInProfile] = useState();
 
   const updateUserProfile = () => {
+    setBirth(selectedDate);
     var today = new Date();
     var birthDate = new Date(selectedDate);
     const age = today.getFullYear() - birthDate.getFullYear();
