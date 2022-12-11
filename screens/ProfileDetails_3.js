@@ -54,7 +54,7 @@ const ProfileDetails_3 = () => {
       phone:phone,
       birth:birth,
       email:email,
-      gender:gender,
+      gender:gender?gender:"Man",
       timestamp: serverTimestamp(),
     })
       .then(() => {
