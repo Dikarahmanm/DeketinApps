@@ -3,9 +3,10 @@ import { React, useState } from "react";
 import { Foundation, Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-const Header = ({ title, callEnabled, photoEnabled }) => {
+const Header = ({ title, callEnabled, photoURL }) => {
   const navigation = useNavigation();
   const [loggedInProfile, setLoggedInProfile] = useState();
+  console.log(photoURL);
   return (
     <View classname="p-2 flex-row items-center justify-between">
       <View
@@ -28,9 +29,9 @@ const Header = ({ title, callEnabled, photoEnabled }) => {
           }}>
           {title}
         </Text>
-        {photoEnabled && (
+        {photoURL && (
           <Image
-            source={{ uri: loggedInProfile?.photoURL }}
+            source={{ uri: photoURL }}
             style={{
               alignSelf: "center",
               width: 122,

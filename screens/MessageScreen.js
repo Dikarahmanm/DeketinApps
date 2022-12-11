@@ -73,7 +73,7 @@ const MessageScreen = () => {
       <Header
         title={getMatchedUserInfo(matchDetails?.users, user.uid).displayName}
         callEnabled={true}
-        photoEnabled={true}
+        photoURL={getMatchedUserInfo(matchDetails?.users, user.uid).photoURL}
       />
 
       {messages.length > 0 ? (
