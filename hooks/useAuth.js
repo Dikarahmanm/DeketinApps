@@ -23,9 +23,12 @@ export const AuthProvider = ({ children }) => {
     iosClientId:
       "398467169577-l2kmjsts9luf34j9jcdqvo57khatdap6.apps.googleusercontent.com",
     androidClientId:
-      "398467169577-eg9c6m7bdhsgueo8b7lu9reh2d50ftdb.apps.googleusercontent.com",
+      "398467169577-5oho7hld1jlfotadia86nj4jvmv9vu0j.apps.googleusercontent.com",
     expoClientId:
       "398467169577-bqpj1p5rc7ktdfbeo3vda9fr6opnu0ak.apps.googleusercontent.com",
+    webClientId:
+    "398467169577-eg9c6m7bdhsgueo8b7lu9reh2d50ftdb.apps.googleusercontent.com",
+
   });
 
   const logout = () => {
