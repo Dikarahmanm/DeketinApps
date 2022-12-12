@@ -35,8 +35,13 @@ const ChatList = () => {
       renderItem={({ item }) => <ChatRow matchDetails={item} />}
     />
   ) : (
-    <View style={{ alignSelf: "center", alignContent: "center", top: "100%" }}>
-      <Text>No matches at the moment.</Text>
+    <View style={{ alignSelf: "center", alignContent: "center" }}>
+      <Text
+        style={{
+          color: "#a6a6a6",
+        }}>
+        No matches at the moment.
+      </Text>
     </View>
   );
 };

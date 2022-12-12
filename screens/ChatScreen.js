@@ -4,7 +4,6 @@ import Header from "../components/Header";
 import ChatList from "../components/ChatList";
 import { useNavigation } from "@react-navigation/core";
 import { Ionicons } from "@expo/vector-icons";
-import Navigation from "../components/Navigation";
 
 const ChatScreen = () => {
   const navigation = useNavigation();
@@ -14,7 +13,7 @@ const ChatScreen = () => {
     });
   }, []);
   return (
-    <SafeAreaView>
+    <SafeAreaView forceInset={{ bottom: "always", top: "never" }}>
       <View>
         <View
           style={{
@@ -47,9 +46,6 @@ const ChatScreen = () => {
       </View>
       {/* <Header title="Chat" /> */}
       <ChatList />
-      <View style={{ top: "222%" }}>
-        <Navigation CurrentPageName={"Chat"} />
-      </View>
     </SafeAreaView>
   );
 };

@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, SafeAreaView } from "react-native";
 import React from "react";
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/core";
@@ -7,7 +7,8 @@ import { Ionicons, FontAwesome5 } from "@expo/vector-icons";
 const Navigation = ({ CurrentPageName }) => {
   const navigation = useNavigation();
   return (
-    <View
+    <SafeAreaView
+      forceInset={{ bottom: "always", top: "never" }}
       style={{
         position: "absolute",
         bottom: 0,
@@ -84,7 +85,7 @@ const Navigation = ({ CurrentPageName }) => {
           color={CurrentPageName === "Profile" ? "#FFFFFF" : "#2A9287"}
         />
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };
 
