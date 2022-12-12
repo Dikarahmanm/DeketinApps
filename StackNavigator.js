@@ -2,6 +2,10 @@ import { View, Text } from "react-native";
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Ionicons } from "@expo/vector-icons";
+
+// Screen
 import HomeScreen from "./screens/HomeScreen";
 import ChatScreen from "./screens/ChatScreen";
 import LoginScreen from "./screens/LoginScreen";
@@ -22,6 +26,65 @@ const StackNavigator = () => {
   const { user } = useAuth();
   const Stack = createNativeStackNavigator();
 
+  const BottomTab = createBottomTabNavigator();
+
+  function MainTabNavigator() {
+    return (
+      <BottomTab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+
+            if (route.name === "Home") {
+              iconName = focused ? "home" : "home-outline";
+            } else if (route.name === "Likes") {
+              iconName = focused ? "heart" : "heart-outline";
+            } else if (route.name === "Chat") {
+              iconName = focused
+                ? "chatbubble-ellipses"
+                : "chatbubble-ellipses-outline";
+            } else if (route.name === "Profile") {
+              iconName = focused ? "person" : "person-outline";
+            }
+
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+          tabBarShowLabel: false,
+          tabBarStyle: {
+            borderTopRightRadius: 30,
+            borderTopLeftRadius: 30,
+
+            position: "absolute",
+            height: "7%",
+          },
+          tabBarActiveTintColor: "white",
+          tabBarInactiveTintColor: "black",
+          tabBarActiveBackgroundColor: "#2A9287",
+        })}>
+        <BottomTab.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            tabBarItemStyle: {
+              borderTopLeftRadius: 30,
+            },
+          }}
+        />
+        <BottomTab.Screen name="Likes" component={LikesScreen} />
+        <BottomTab.Screen name="Chat" component={ChatScreen} />
+        <BottomTab.Screen
+          name="Profile"
+          component={Profile}
+          options={{
+            tabBarItemStyle: {
+              borderTopRightRadius: 30,
+            },
+          }}
+        />
+      </BottomTab.Navigator>
+    );
+  }
+
   return (
     <NavigationContainer independent={true}>
       <Stack.Navigator
@@ -32,6 +95,11 @@ const StackNavigator = () => {
         {user ? (
           <>
             <Stack.Group>
+              <Stack.Screen
+                name="Navbar"
+                component={MainTabNavigator}
+                options={{ headerShown: false }}
+              />
               <Stack.Screen name="Home" component={HomeScreen} />
               <Stack.Screen name="Match" component={MatchedScreen} />
               <Stack.Screen name="Chat" component={ChatScreen} />
@@ -39,9 +107,11 @@ const StackNavigator = () => {
               <Stack.Screen name="Notif" component={NotifScreen} />
               <Stack.Screen name="Likes" component={LikesScreen} />
               <Stack.Screen name="Profile" component={Profile} />
-            <Stack.Screen name="ProfileDetails" component={ProfileDetails} />
-            <Stack.Screen name="ProfileDetails2" component={ProfileDetails_3} />
-            <Stack.Screen name="ProfileDetails3" component={ProfileDetails_4} />
+              <Stack.Screen name="ProfileDetails" component={ProfileDetails} />
+              <Stack.Screen
+                name="ProfileDetails2"
+                component={ProfileDetails_3}
+              />
             </Stack.Group>
             <Stack.Group screenOptions={{ presentation: "modal" }}>
               <Stack.Screen name="Modal" component={ModalScreen} />

@@ -18,7 +18,6 @@ import { db } from "../firebase";
 
 import DatePicker from "react-native-modern-datepicker";
 import Modal from "react-native-modal";
-import Navigation from "../components/Navigation";
 const Profile = () => {
   const navigation = useNavigation();
   useLayoutEffect(() => {
@@ -83,13 +82,12 @@ const Profile = () => {
       setBirth(document.data()?.birth);
       setGender(document.data()?.gender);
       setSelectedDate(document.data()?.birth);
-      
     });
   }, []);
 
   return (
     <View>
-      <ScrollView>
+      <ScrollView forceInset={{ bottom: "always", top: "never" }}>
         <StatusBar hidden={true} />
         <View>
           <View style={{ flexDirection: "column" }}>
@@ -521,7 +519,10 @@ const Profile = () => {
                 textSecondaryColor: "#40E0D0",
                 borderColor: "rgba(122, 146, 165, 0.1)",
               }}
-              onSelectedChange={(selectedDate) =>{ setSelectedDate(selectedDate); setBirth(selectedDate);}}
+              onSelectedChange={(selectedDate) => {
+                setSelectedDate(selectedDate);
+                setBirth(selectedDate);
+              }}
               selected={selectedDate}
               mode="calendar"
               minuteInterval={30}
@@ -560,7 +561,6 @@ const Profile = () => {
           </View>
         </View>
       </Modal>
-      <Navigation CurrentPageName={"Profile"} />
     </View>
   );
 };

@@ -20,7 +20,6 @@ import { useLayoutEffect } from "react";
 import Header from "../components/Header";
 import { SafeAreaView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import Navigation from "../components/Navigation";
 
 const LikesScreen = () => {
   const [likes, setLikes] = useState([]);
@@ -49,7 +48,7 @@ const LikesScreen = () => {
       [user];
   });
   return (
-    <SafeAreaView>
+    <SafeAreaView forceInset={{ bottom: "always", top: "never" }}>
       <View
         style={{
           flexDirection: "row",
@@ -163,17 +162,17 @@ const LikesScreen = () => {
           style={{
             width: "100%",
             height: 50,
-            fontSize: 20,
+            fontSize: 14,
             textAlignVertical: "center",
             color: "#a6a6a6",
             textAlign: "center",
+            alignContent: "center",
+            alignSelf: "center",
+            alignItems: "center",
           }}>
           No likes yet!
         </Text>
       )}
-      <View style={{ top: 29 }}>
-        <Navigation CurrentPageName={"Likes"} />
-      </View>
     </SafeAreaView>
   );
 };

@@ -28,7 +28,7 @@ import {
 import { useRef } from "react";
 import { db } from "../firebase";
 import generateId from "../lib/generateId";
-import Navigation from "../components/Navigation";
+// import Navigation from "../components/Navigation";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -152,7 +152,8 @@ const HomeScreen = () => {
   return (
     <SafeAreaView
       className="flex-1"
-      style={{ flex: 1, backgroundColor: "#ebebeb" }}>
+      style={{ flex: 1, backgroundColor: "#ebebeb" }}
+      forceInset={{ bottom: "always", top: "never" }}>
       <View style={{ height: "80%" }}>
         {/*Header */}
         <View
@@ -161,7 +162,7 @@ const HomeScreen = () => {
             justifyContent: "center",
             marginTop: 20,
           }}>
-          <View>
+          <View style={{ flexDirection: "row" }}>
             <TouchableOpacity
               onPress={() => navigation.navigate("Modal")}
               style={{ left: 22 }}>
@@ -170,10 +171,8 @@ const HomeScreen = () => {
                 style={{ width: 50, height: 50 }}
               />
             </TouchableOpacity>
-          </View>
-          <View style={{ left: "235%", top: "6%" }}>
             <TouchableOpacity
-              style={{ width: 50, height: 50 }}
+              style={{ width: 50, height: 50, left: "255%", top: "10%" }}
               onPress={() => navigation.navigate("Notif")}>
               <MaterialCommunityIcons name="bell" size={24} color="#2A9287" />
             </TouchableOpacity>
@@ -324,7 +323,7 @@ const HomeScreen = () => {
           </View>
         </View>
       </View>
-      <Navigation CurrentPageName={"Home"} />
+      {/* <Navigation CurrentPageName={"Home"} /> */}
     </SafeAreaView>
   );
 };
