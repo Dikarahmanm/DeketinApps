@@ -36,15 +36,15 @@ const StackNavigator = () => {
             let iconName;
 
             if (route.name === "Home") {
-              iconName = focused ? "home" : "home-outline";
+              iconName = focused ? "home-outline" : "home";
             } else if (route.name === "Likes") {
-              iconName = focused ? "heart" : "heart-outline";
+              iconName = focused ? "heart-outline" : "heart";
             } else if (route.name === "Chat") {
               iconName = focused
-                ? "chatbubble-ellipses"
-                : "chatbubble-ellipses-outline";
+                ? "chatbubble-ellipses-outline"
+                : "chatbubble-ellipses";
             } else if (route.name === "Profile") {
-              iconName = focused ? "person" : "person-outline";
+              iconName = focused ? "person-outline" : "person";
             }
 
             return <Ionicons name={iconName} size={size} color={color} />;
@@ -58,7 +58,7 @@ const StackNavigator = () => {
             height: "7%",
           },
           tabBarActiveTintColor: "white",
-          tabBarInactiveTintColor: "black",
+          tabBarInactiveTintColor: "#2A9287",
           tabBarActiveBackgroundColor: "#2A9287",
         })}>
         <BottomTab.Screen
