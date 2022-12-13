@@ -5,10 +5,10 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "scheme":"com.palo.deketin",
+    "scheme": "com.palo.deketin",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/SplashScreen.png",
+      "image": "./assets/LaunchScreen.png",
       "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
@@ -23,13 +23,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.dikarahmanm.DeketinApps"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "f8f4f091-e67c-449a-9964-dfc8f39e4320"
+      }
     }
   }
 }

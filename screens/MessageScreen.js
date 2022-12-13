@@ -93,53 +93,66 @@ const MessageScreen = () => {
           />
         </TouchableWithoutFeedback>
       ) : (
-        <Text>No Messages Yet</Text>
+        <View
+          style={{
+            width: "100%",
+            height: 50,
+            fontSize: 14,
+            textAlignVertical: "center",
+            color: "#a6a6a6",
+            textAlign: "center",
+            alignContent: "center",
+            alignSelf: "center",
+            alignItems: "center",
+          }}>
+          <Text style={{ textAlign: "center" }}>No Messages Yet</Text>
+        </View>
       )}
 
-      <View
+      <TextInput
         style={{
-          height: 50,
-          flexDirection: "row",
-          alignContent: "space-between",
+          fontSize: 18,
+          paddingLeft: "5%",
+          paddingRight: "5%",
+          height: "7%",
+          borderWidth: 1,
+          width: "78%",
+          textDecorationLine: "none",
+          borderColor: "#e3e3e3",
+          borderRadius: 100,
+          bottom: 0,
+          position: "absolute",
+        }}
+        placeholder="Send Message"
+        onChangeText={setInput}
+        value={input}
+      />
+      <TouchableOpacity
+        onPress={sendMessage}
+        style={{
+          flexDirection: "row-reverse",
           alignItems: "center",
+          alignContent: "center",
+          width: "20%",
+          height: "5%",
+          bottom: "1%",
+          position: "absolute",
+          left: "75%",
         }}>
-        <TextInput
+        <Text
           style={{
-            fontSize: 18,
-            paddingLeft: "5%",
-            paddingRight: "5%",
-            height: "100%",
-            borderWidth: 1,
-            width: "80%",
-            textDecorationLine: "none",
-            borderColor: "#e3e3e3",
-            borderRadius: 100,
-          }}
-          placeholder="Send Message"
-          onChangeText={setInput}
-          value={input}
-        />
-        <TouchableOpacity
-          onPress={sendMessage}
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            alignContent: "space-between",
-            width: "20%",
-            height: "100%",
+            width: "100%",
+            fontSize: 20,
+            color: "#00b591",
+            fontWeight: "bold",
+            bottom: 0,
+            alignContent: "center",
+            textAlign: "right",
+            justifyContent: "center",
           }}>
-          <Text
-            style={{
-              textAlign: "center",
-              width: "100%",
-              fontSize: 20,
-              color: "#00b591",
-              fontWeight: "bold",
-            }}>
-            Send
-          </Text>
-        </TouchableOpacity>
-      </View>
+          Send
+        </Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
