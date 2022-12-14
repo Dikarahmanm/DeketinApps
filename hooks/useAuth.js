@@ -27,8 +27,7 @@ export const AuthProvider = ({ children }) => {
     expoClientId:
       "398467169577-bqpj1p5rc7ktdfbeo3vda9fr6opnu0ak.apps.googleusercontent.com",
     webClientId:
-    "398467169577-eg9c6m7bdhsgueo8b7lu9reh2d50ftdb.apps.googleusercontent.com",
-
+      "398467169577-eg9c6m7bdhsgueo8b7lu9reh2d50ftdb.apps.googleusercontent.com",
   });
 
   const logout = () => {
